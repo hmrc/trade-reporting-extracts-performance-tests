@@ -26,3 +26,9 @@ lib_managed
 src_managed/
 project/project
 project/target
+
+# VS Code files
+.bloop
+.metals
+project/metals.sbt
+.vscode
