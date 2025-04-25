@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,6 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.perftests.example
+package support.models
 
-import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.example.ExampleRequests._
-
-class ExampleSimulation extends PerformanceTestRunner {
-
-  setup("home-page", "Home Page") withRequests navigateToHomePage
-
-  setup("post-vat-return-period", "Post vat return period") withRequests postVatReturnPeriod
-
-  setup("get-turnover-page", "Get turnover page") withRequests getTurnoverPage
-
-  runSimulation()
-}
+case class EnrolmentsData(enrolmentKey: String, identifierName: String, identifierValue: String)
