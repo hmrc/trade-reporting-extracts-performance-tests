@@ -42,14 +42,8 @@ object LoginRquests extends ServicesConfiguration {
       .formParam("email", "user@test.com")
       .formParam("authorityId", "")
 
-    print(s">>>>> DEBUG >>>>> $baseURL/request-customs-declaration-data/dashboard \n")
-
     userCredentials.enrolmentsData match {
       case Some(data) =>
-        print(s">>>>> DEBUG >>>>> ${data.enrolmentKey} \n")
-        print(s">>>>> DEBUG >>>>> ${data.identifierName} \n")
-        print(s">>>>> DEBUG >>>>> ${data.identifierValue} \n")
-
         builder
           .formParam("enrolment[0].name", data.enrolmentKey)
           .formParam("enrolment[0].taxIdentifier[0].name", data.identifierName)
