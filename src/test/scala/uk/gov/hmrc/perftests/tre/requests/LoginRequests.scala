@@ -41,7 +41,7 @@ object LoginRquests extends ServicesConfiguration {
       .formParam("credentialRole", userCredentials.credentialRole.toString)
       .formParam("email", "user@test.com")
       .formParam("authorityId", "")
-    
+
     print(s">>>>> DEBUG >>>>> $baseURL/request-customs-declaration-data/dashboard \n")
 
     userCredentials.enrolmentsData match {

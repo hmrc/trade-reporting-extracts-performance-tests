@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.perftests.tre.steps
 
-import support.builders.UserCredentialsBuilder.{anOrganisationUserWithKnownEnrolment}
+import support.builders.UserCredentialsBuilder.anOrganisationUserWithKnownEnrolment
 import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
 import uk.gov.hmrc.perftests.tre.requests.LoginRquests._
 import uk.gov.hmrc.perftests.tre.requests.RequestReportRequests._

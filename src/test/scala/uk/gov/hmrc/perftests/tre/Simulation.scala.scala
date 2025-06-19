@@ -20,7 +20,7 @@ import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.tre.steps._
 
 class Simulation extends PerformanceTestRunner with ExampleSimulationSteps {
-  
+
   // AuthWizard
   LogInAndGetToDashboard(id = "login-and-get-to-dashboard", description = "User logs in via the Authority Wizard.")
 
