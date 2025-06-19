@@ -22,27 +22,41 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 import support.models.UserCredentials
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
-object ExampleRequests extends ServicesConfiguration {
+object LoginRquests extends ServicesConfiguration {
 
-  val baseUrl: String = baseUrlFor("auth-login-stub")
+  val authURL: String = baseUrlFor("auth-login-stub")
+  val baseURL: String = baseUrlFor("trade-reporting-extracts")
 
   def getLoginPage: HttpRequestBuilder = http("Get Login Page")
-    .get(baseUrl + s"/auth-login-stub/gg-sign-in")
+    .get(authURL + s"/auth-login-stub/gg-sign-in")
     .check(status.is(200))
 
   def postLoginPage(userCredentials: UserCredentials): HttpRequestBuilder = {
     val builder = http("Sign in to Auth login stub")
-      .post(s"$baseUrl/auth-login-stub/gg-sign-in")
-      .formParam("redirectionUrl", s"$baseUrl/request-customs-declaration-data/dashboard")
+      .post(s"$authURL/auth-login-stub/gg-sign-in")
+      .formParam("redirectionUrl", s"$baseURL/request-customs-declaration-data/dashboard")
+      .formParam("credentialStrength", "strong")
+      .formParam("confidenceLevel", "50")
+      .formParam("affinityGroup", userCredentials.affinityGroup.toString)
+      .formParam("credentialRole", userCredentials.credentialRole.toString)
+      .formParam("email", "user@test.com")
+      .formParam("authorityId", "")
+    
+    print(s">>>>> DEBUG >>>>> $baseURL/request-customs-declaration-data/dashboard \n")
 
     userCredentials.enrolmentsData match {
-      case Some(data) => builder
-        .formParam("enrolment[0].name", data.enrolmentKey)
-        .formParam("enrolment[0].taxIdentifier[0].name", data.identifierName)
-        .formParam("enrolment[0].taxIdentifier[0].value", data.identifierValue)
-        .formParam("enrolment[0].state", "Activated")
-        .check(status.is(303))
-      case None => builder.check(status.is(303))
+      case Some(data) =>
+        print(s">>>>> DEBUG >>>>> ${data.enrolmentKey} \n")
+        print(s">>>>> DEBUG >>>>> ${data.identifierName} \n")
+        print(s">>>>> DEBUG >>>>> ${data.identifierValue} \n")
+
+        builder
+          .formParam("enrolment[0].name", data.enrolmentKey)
+          .formParam("enrolment[0].taxIdentifier[0].name", data.identifierName)
+          .formParam("enrolment[0].taxIdentifier[0].value", data.identifierValue)
+          .formParam("enrolment[0].state", "Activated")
+          .check(status.is(303))
+      case None       => builder.check(status.is(303))
     }
   }
 }

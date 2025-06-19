@@ -16,4 +16,6 @@
 
 package support.models
 
-case class UserCredentials(enrolmentsData: Option[EnrolmentsData])
+case class UserCredentials(affinityGroup: AffinityGroup,
+                           credentialRole: CredentialRole,
+                           enrolmentsData: Option[EnrolmentsData])
