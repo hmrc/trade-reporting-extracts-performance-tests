@@ -17,8 +17,12 @@
 package uk.gov.hmrc.perftests.tre
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.tre.requests.ExampleRequests._
+import uk.gov.hmrc.perftests.tre.steps._
 
-class ExampleSimulation extends PerformanceTestRunner {
+class Simulation extends PerformanceTestRunner with ExampleSimulationSteps {
+  
+  // AuthWizard
+  LogInAndGetToDashboard(id = "login-and-get-to-dashboard", description = "User logs in via the Authority Wizard.")
+
   runSimulation()
 }
