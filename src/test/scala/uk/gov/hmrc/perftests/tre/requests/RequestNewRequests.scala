@@ -21,7 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
-object RequestReportRequests extends ServicesConfiguration {
+object RequestNewRequests extends ServicesConfiguration {
 
   val baseUrl: String = baseUrlFor("trade-reporting-extracts")
   val route: String   = "/request-customs-declaration-data"

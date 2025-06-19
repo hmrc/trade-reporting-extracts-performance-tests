@@ -18,12 +18,26 @@ package uk.gov.hmrc.perftests.tre.steps
 
 import support.builders.UserCredentialsBuilder.anOrganisationUserWithKnownEnrolment
 import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
+
 import uk.gov.hmrc.perftests.tre.requests.LoginRquests._
-import uk.gov.hmrc.perftests.tre.requests.RequestReportRequests._
+import uk.gov.hmrc.perftests.tre.requests.RequestNewRequests._
+// import uk.gov.hmrc.perftests.tre.requests.RequestedReportsRequests._
 
-trait ExampleSimulationSteps extends PerformanceTestRunner {
+trait ReportSteps extends PerformanceTestRunner {
 
-  def LogInAndGetToDashboard(id: String, description: String): JourneyPart = setup(id, description).withRequests(
+  def LoginAndRequestNewReport(id: String, description: String): JourneyPart = setup(id, description).withRequests(
+    getLoginPage,
+    postLoginPage(anOrganisationUserWithKnownEnrolment),
+    getDashboardPage
+  )
+
+  def LoginAndCheckAvailableReports(id: String, description: String): JourneyPart = setup(id, description).withRequests(
+    getLoginPage,
+    postLoginPage(anOrganisationUserWithKnownEnrolment),
+    getDashboardPage
+  )
+
+  def LoginAndCheckDownloadableReports(id: String, description: String): JourneyPart = setup(id, description).withRequests(
     getLoginPage,
     postLoginPage(anOrganisationUserWithKnownEnrolment),
     getDashboardPage

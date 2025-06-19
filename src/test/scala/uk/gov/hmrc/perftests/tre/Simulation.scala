@@ -19,10 +19,17 @@ package uk.gov.hmrc.perftests.tre
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.tre.steps._
 
-class Simulation extends PerformanceTestRunner with ExampleSimulationSteps {
+class Simulation extends PerformanceTestRunner 
+with ReportSteps
+with YourAccount {
 
-  // AuthWizard
-  LogInAndGetToDashboard(id = "login-and-get-to-dashboard", description = "User logs in via the Authority Wizard.")
+  // Reports
+  LoginAndRequestNewReport(id = "login-and-request-new-report", description = "User logs in via the Authority Wizard and requests a new report.")
+  LoginAndCheckAvailableReports(id = "login-and-check-available-reports", description = "User logs in via the Authority Wizard and checks their requested reports.")
+  LoginAndCheckDownloadableReports(id = "login-and-check-downloadable-reports", description = "User logs in via the Authority Wizard and checks reports available for download.")
+
+  // Account
+  // journeyNameHere()...
 
   runSimulation()
 }
