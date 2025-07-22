@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.tre.requests.RequestsHelper.{saveCsrfToken, authCookie}
 
 object RequestNewRequests extends ServicesConfiguration {
 
@@ -34,17 +35,21 @@ object RequestNewRequests extends ServicesConfiguration {
   def getDashboardPage: HttpRequestBuilder =
     http("Navigate to dashboard page")
       .get(s"$baseUrl$route/dashboard")
+      .header("Cookie", authCookie)
       .check(status.is(200))
 
-  def getRequestReportPage: HttpRequestBuilder =
-    http("Navigate to request a report page")
+  def getRequestReportStartPage: HttpRequestBuilder =
+    http("Navigate to the starting page")
       .get(s"$baseUrl$route/request-cds-report")
+      .header("Cookie", authCookie)
       .check(status.is(200))
 
   def getRequestTypePage: HttpRequestBuilder =
     http("Navigate to report type page")
       .get(s"$baseUrl$route/data-download")
+      .header("Cookie", authCookie)
       .check(status.is(200))
+      .check(saveCsrfToken)
 
   def postRequestTypePage: HttpRequestBuilder =
     http("posting type of data to download")
@@ -52,95 +57,97 @@ object RequestNewRequests extends ServicesConfiguration {
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "import")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/which-eori").saveAs("eoriNumber"))
 
   def getWhichEoriPage: HttpRequestBuilder =
     http("Navigate to which eori number page")
-      .get(s"$baseUrl" + "${eoriNumber}")
+      .get(s"$baseUrl$route/which-eori")
+      .header("Cookie", authCookie)
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+      .check(saveCsrfToken)
 
-  def postEoriNumberpage: HttpRequestBuilder =
+  def postWhichEoripage: HttpRequestBuilder =
     http("posting Eori Number")
-      .post(s"$baseUrl" + "${eoriNumber}")
+      .post(s"$baseUrl$route/which-eori")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "myEori")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/request-cds-report/eoriRole").saveAs("eoriRole"))
 
-  def getReportOwnerTypePage: HttpRequestBuilder =
-    http("Navigate to which eori number page")
-      .get(s"$baseUrl" + "${eoriRole}")
+  def getReportRolePage: HttpRequestBuilder =
+    http("Navigate to the user role in report page")
+      .get(s"$baseUrl$route/your-role")
+      .header("Cookie", authCookie)
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+      .check(saveCsrfToken)
 
-  def postEoriNumberOwnerRolePage: HttpRequestBuilder =
-    http("posting owner of the Eori Number role")
-      .post(s"$baseUrl" + "${eoriRole}")
+  def postReportRolePage: HttpRequestBuilder =
+    http("posting user role in the report")
+      .post(s"$baseUrl$route/your-role")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "declarant")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/request-cds-report/report-type").saveAs("reportType"))
 
   def getReportSubtypeSelectionPage: HttpRequestBuilder =
     http("Navigate to report subtype selection page")
-      .get(s"$baseUrl" + "${reportType}")
+      .get(s"$baseUrl$route/report-type")
+      .header("Cookie", authCookie)
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+      .check(saveCsrfToken)
 
-  def postTypeOfReportPage: HttpRequestBuilder =
+  def postReportSubtypeSelectionPage: HttpRequestBuilder =
     http("posting owner of the Eori Number role")
-      .post(s"$baseUrl" + "${reportType}")
+      .post(s"$baseUrl$route/report-type")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "importHeader")
+      .formParam("value", "importItem")
+      .formParam("value", "importTaxLine")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/request-cds-report/date-rage").saveAs("dateRange"))
 
   def getDateRangePage: HttpRequestBuilder =
     http("Navigate to date range selection page")
-      .get(s"$baseUrl" + "${dateRange}")
+      .get(s"$baseUrl$route/date-rage")
+      .header("Cookie", authCookie)
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+      .check(saveCsrfToken)
 
-  def postDateRangeToCoverReportPage: HttpRequestBuilder =
+  def postDateRangePage: HttpRequestBuilder =
     http("posting date range to cover reports")
-      .post(s"$baseUrl" + "${reportType}")
+      .post(s"$baseUrl$route/date-rage")
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("value", "lastThirtyOneDays")
+      .formParam("value", "lastFullCalendarMonth")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/request-cds-report/report-name").saveAs("reportName"))
 
   def getReportNamePage: HttpRequestBuilder =
     http("Navigate to report name page")
-      .get(s"$baseUrl" + "${reportName}")
+      .get(s"$baseUrl$route/report-name")
+      .header("Cookie", authCookie)
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+      .check(saveCsrfToken)
 
-  def postNameofReportPage: HttpRequestBuilder =
+  def postReportNamePage: HttpRequestBuilder =
     http("posting name to identify reports")
-      .post(s"$baseUrl" + "${reportName}")
+      .post(s"$baseUrl$route/report-name")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "tre")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/request-cds-report/choose-email-address").saveAs("chooseEmailAddress"))
 
-  def getChooseToAddEmailAddressPage: HttpRequestBuilder =
+  def getChooseToAddAnotherEmailPage: HttpRequestBuilder =
     http("Navigate to choose to add email address page")
-      .get(s"$baseUrl" + "${chooseEmailAddress}")
+      .get(s"$baseUrl$route/choose-email-address")
+      .header("Cookie", authCookie)
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+      .check(saveCsrfToken)
 
-  def postWantToAddAnotherEmailPage: HttpRequestBuilder =
-    http("posting add another email address")
-      .post(s"$baseUrl" + "${reportName}")
+  def postChooseToAddAnotherEmailPage: HttpRequestBuilder =
+    http("posting choose to add email address page")
+      .post(s"$baseUrl$route/choose-email-address")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "false")
       .check(status.is(303))
-      .check(header("Location").is(s"$route/request-cds-report/check-your-answers"))
 
   def getCheckYourAnswerPage: HttpRequestBuilder =
     http("Navigate to choose to add email address page")
-      .get(s"$baseUrl" + s"$route" + "/check-your-answers")
+      .get(s"$baseUrl$route/check-your-answers")
+      .header("Cookie", authCookie)
       .check(status.is(200))
-
+      .check(saveCsrfToken)
 }

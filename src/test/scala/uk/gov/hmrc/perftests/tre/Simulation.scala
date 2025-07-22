@@ -24,9 +24,9 @@ with ReportSteps
 with YourAccount {
 
   // Reports
-  LoginAndRequestNewReport(id = "login-and-request-new-report", description = "User logs in via the Authority Wizard and requests a new report.")
-  LoginAndCheckAvailableReports(id = "login-and-check-available-reports", description = "User logs in via the Authority Wizard and checks their requested reports.")
-  LoginAndCheckDownloadableReports(id = "login-and-check-downloadable-reports", description = "User logs in via the Authority Wizard and checks reports available for download.")
+  LoginAndRequestNewReport(id = "login-and-request-new-report", description = "User requests a new report.")
+  LoginAndCheckAvailableReports(id = "login-and-check-available-reports", description = "User checks their requested reports.")
+  LoginAndCheckDownloadableReports(id = "login-and-check-downloadable-reports", description = "User checks reports available for download.")
 
   // Account
   // journeyNameHere()...

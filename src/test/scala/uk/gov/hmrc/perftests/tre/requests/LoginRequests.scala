@@ -27,12 +27,12 @@ object LoginRquests extends ServicesConfiguration {
   val authURL: String = baseUrlFor("auth-login-stub")
   val baseURL: String = baseUrlFor("trade-reporting-extracts")
 
-  def getLoginPage: HttpRequestBuilder = http("Get Login Page")
+  def getLoginPage: HttpRequestBuilder = http("Get AuthWiz Login Page")
     .get(authURL + s"/auth-login-stub/gg-sign-in")
     .check(status.is(200))
 
   def postLoginPage(userCredentials: UserCredentials): HttpRequestBuilder = {
-    val builder = http("Sign in to Auth login stub")
+    val builder = http("Sign in through AuthWiz")
       .post(s"$authURL/auth-login-stub/gg-sign-in")
       .formParam("redirectionUrl", s"$baseURL/request-customs-declaration-data/dashboard")
       .formParam("credentialStrength", "strong")
@@ -50,6 +50,8 @@ object LoginRquests extends ServicesConfiguration {
           .formParam("enrolment[0].taxIdentifier[0].value", data.identifierValue)
           .formParam("enrolment[0].state", "Activated")
           .check(status.is(303))
+          .check(headerRegex("Set-Cookie", """mdtp=(.*)""").saveAs("mdtpCookie"))
+
       case None       => builder.check(status.is(303))
     }
   }

@@ -26,18 +26,37 @@ import uk.gov.hmrc.perftests.tre.requests.RequestNewRequests._
 trait ReportSteps extends PerformanceTestRunner {
 
   def LoginAndRequestNewReport(id: String, description: String): JourneyPart = setup(id, description).withRequests(
+    getGuidancePage,
     getLoginPage,
     postLoginPage(anOrganisationUserWithKnownEnrolment),
-    getDashboardPage
+    getDashboardPage,
+    getRequestReportStartPage,
+    getRequestTypePage,
+    postRequestTypePage,
+    getWhichEoriPage,
+    postWhichEoripage,
+    getReportRolePage,
+    postReportRolePage,
+    getReportSubtypeSelectionPage,
+    postReportSubtypeSelectionPage,
+    getDateRangePage,
+    postDateRangePage,
+    getReportNamePage,
+    postReportNamePage,
+    getChooseToAddAnotherEmailPage,
+    postChooseToAddAnotherEmailPage,
+    getCheckYourAnswerPage
   )
 
   def LoginAndCheckAvailableReports(id: String, description: String): JourneyPart = setup(id, description).withRequests(
+    getGuidancePage,
     getLoginPage,
     postLoginPage(anOrganisationUserWithKnownEnrolment),
     getDashboardPage
   )
 
   def LoginAndCheckDownloadableReports(id: String, description: String): JourneyPart = setup(id, description).withRequests(
+    getGuidancePage,
     getLoginPage,
     postLoginPage(anOrganisationUserWithKnownEnrolment),
     getDashboardPage
