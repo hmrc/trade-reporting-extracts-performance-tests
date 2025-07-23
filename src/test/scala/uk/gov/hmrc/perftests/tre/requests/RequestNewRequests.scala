@@ -84,6 +84,7 @@ object RequestNewRequests extends ServicesConfiguration {
       .post(s"$baseUrl$route/your-role")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "declarant")
+      .formParam("value", "importer")
       .check(status.is(303))
 
   def getReportSubtypeSelectionPage: HttpRequestBuilder =
@@ -132,14 +133,14 @@ object RequestNewRequests extends ServicesConfiguration {
 
   def getChooseToAddAnotherEmailPage: HttpRequestBuilder =
     http("Navigate to choose to add email address page")
-      .get(s"$baseUrl$route/choose-email-address")
+      .get(s"$baseUrl$route/add-another-email")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postChooseToAddAnotherEmailPage: HttpRequestBuilder =
     http("posting choose to add email address page")
-      .post(s"$baseUrl$route/choose-email-address")
+      .post(s"$baseUrl$route/add-another-email")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "false")
       .check(status.is(303))
@@ -149,5 +150,4 @@ object RequestNewRequests extends ServicesConfiguration {
       .get(s"$baseUrl$route/check-your-answers")
       .header("Cookie", authCookie)
       .check(status.is(200))
-      .check(saveCsrfToken)
 }
