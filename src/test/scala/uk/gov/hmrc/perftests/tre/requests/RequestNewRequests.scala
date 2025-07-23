@@ -88,14 +88,14 @@ object RequestNewRequests extends ServicesConfiguration {
 
   def getReportSubtypeSelectionPage: HttpRequestBuilder =
     http("Navigate to report subtype selection page")
-      .get(s"$baseUrl$route/report-type")
+      .get(s"$baseUrl$route/import-report-type")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postReportSubtypeSelectionPage: HttpRequestBuilder =
     http("posting owner of the Eori Number role")
-      .post(s"$baseUrl$route/report-type")
+      .post(s"$baseUrl$route/import-report-type")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "importHeader")
       .formParam("value", "importItem")
@@ -145,7 +145,7 @@ object RequestNewRequests extends ServicesConfiguration {
       .check(status.is(303))
 
   def getCheckYourAnswerPage: HttpRequestBuilder =
-    http("Navigate to choose to add email address page")
+    http("Navigate to check answers page")
       .get(s"$baseUrl$route/check-your-answers")
       .header("Cookie", authCookie)
       .check(status.is(200))
