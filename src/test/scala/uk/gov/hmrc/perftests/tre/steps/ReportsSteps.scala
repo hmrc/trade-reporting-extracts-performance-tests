@@ -45,7 +45,9 @@ trait ReportSteps extends PerformanceTestRunner {
     postReportNamePage,
     getChooseToAddAnotherEmailPage,
     postChooseToAddAnotherEmailPage,
-    // getCheckYourAnswerPage
+    getCheckYourAnswerPage,
+    postCheckYourAnswerPage,
+    getSubmissionPage
   )
 
   def LoginAndCheckAvailableReports(id: String, description: String): JourneyPart = setup(id, description).withRequests(
@@ -55,10 +57,11 @@ trait ReportSteps extends PerformanceTestRunner {
     getDashboardPage
   )
 
-  def LoginAndCheckDownloadableReports(id: String, description: String): JourneyPart = setup(id, description).withRequests(
-    getGuidancePage,
-    getLoginPage,
-    postLoginPage(anOrganisationUserWithKnownEnrolment),
-    getDashboardPage
-  )
+  def LoginAndCheckDownloadableReports(id: String, description: String): JourneyPart =
+    setup(id, description).withRequests(
+      getGuidancePage,
+      getLoginPage,
+      postLoginPage(anOrganisationUserWithKnownEnrolment),
+      getDashboardPage
+    )
 }
