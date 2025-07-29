@@ -22,10 +22,10 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object RequestedReportsRequests extends ServicesConfiguration {
-    
-    def actionName: HttpRequestBuilder =
-        http("Do an action")
-        .get(s"")
-        .check(status.is(200))
+
+  def actionName: HttpRequestBuilder =
+    http("Do an action")
+      .get(s"")
+      .check(status.is(200))
 
 }
