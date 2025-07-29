@@ -1,1 +1,1 @@
-sbt -Dperftest.runSmokeTest=true -DrunLocal=true gatling:test
+sbt scalafmtAll -Dperftest.runSmokeTest=true -DrunLocal=true gatling:test
