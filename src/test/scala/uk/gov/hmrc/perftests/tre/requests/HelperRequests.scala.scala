@@ -21,7 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.check.HttpCheck
 
 object RequestsHelper {
-    val authCookie: String = "mdtp=${mdtpCookie}"
-    
-    def saveCsrfToken: HttpCheck = css("input[name=csrfToken]", "value").saveAs("csrfToken")
+  val authCookie: String = "mdtp=${mdtpCookie}"
+
+  def saveCsrfToken: HttpCheck = css("input[name=csrfToken]", "value").saveAs("csrfToken")
 }

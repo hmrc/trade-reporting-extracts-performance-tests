@@ -52,7 +52,7 @@ object LoginRquests extends ServicesConfiguration {
           .check(status.is(303))
           .check(headerRegex("Set-Cookie", """mdtp=(.*)""").saveAs("mdtpCookie"))
 
-      case None       => builder.check(status.is(303))
+      case None => builder.check(status.is(303))
     }
   }
 }

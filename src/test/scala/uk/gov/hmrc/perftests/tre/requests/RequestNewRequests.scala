@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.tre.requests.RequestsHelper.{saveCsrfToken, authCookie}
+import uk.gov.hmrc.perftests.tre.requests.RequestsHelper.{authCookie, saveCsrfToken}
 
 object RequestNewRequests extends ServicesConfiguration {
 
@@ -83,8 +83,8 @@ object RequestNewRequests extends ServicesConfiguration {
     http("posting user role in the report")
       .post(s"$baseUrl$route/your-role")
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("value", "declarant")
-      .formParam("value", "importer")
+      .formParam("value[0]", "declarant")
+      .formParam("value[1]", "importer")
       .check(status.is(303))
 
   def getReportSubtypeSelectionPage: HttpRequestBuilder =
@@ -98,9 +98,9 @@ object RequestNewRequests extends ServicesConfiguration {
     http("posting owner of the Eori Number role")
       .post(s"$baseUrl$route/import-report-type")
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("value", "importHeader")
-      .formParam("value", "importItem")
-      .formParam("value", "importTaxLine")
+      .formParam("value[0]", "importHeader")
+      .formParam("value[1]", "importItem")
+      .formParam("value[2]", "importTaxLine")
       .check(status.is(303))
 
   def getDateRangePage: HttpRequestBuilder =
@@ -148,6 +148,19 @@ object RequestNewRequests extends ServicesConfiguration {
   def getCheckYourAnswerPage: HttpRequestBuilder =
     http("Navigate to check answers page")
       .get(s"$baseUrl$route/check-your-answers")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+      .check(saveCsrfToken)
+
+  def postCheckYourAnswerPage: HttpRequestBuilder =
+    http("posting to check answers page")
+      .post(s"$baseUrl$route/check-your-answers")
+      .formParam("csrfToken", "${csrfToken}")
+      .check(status.is(303))
+
+  def getSubmissionPage: HttpRequestBuilder =
+    http("Navigate to submission page")
+      .get(s"$baseUrl$route/report-request-confirmation")
       .header("Cookie", authCookie)
       .check(status.is(200))
 }
