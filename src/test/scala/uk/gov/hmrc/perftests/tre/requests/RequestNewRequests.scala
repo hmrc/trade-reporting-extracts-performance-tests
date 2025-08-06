@@ -105,14 +105,14 @@ object RequestNewRequests extends ServicesConfiguration {
 
   def getDateRangePage: HttpRequestBuilder =
     http("Navigate to date range selection page")
-      .get(s"$baseUrl$route/date-rage")
+      .get(s"$baseUrl$route/date-range")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postDateRangePage: HttpRequestBuilder =
     http("posting date range to cover reports")
-      .post(s"$baseUrl$route/date-rage")
+      .post(s"$baseUrl$route/date-range")
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "lastFullCalendarMonth")
       .check(status.is(303))
