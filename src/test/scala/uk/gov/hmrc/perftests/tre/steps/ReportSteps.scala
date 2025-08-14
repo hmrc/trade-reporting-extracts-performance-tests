@@ -44,7 +44,7 @@ trait ReportSteps extends PerformanceTestRunner {
     postReportNamePage,
     getChooseToAddAnotherEmailPage,
     postChooseToAddAnotherEmailPage,
-    getCheckYourAnswerPage,
+    getCheckYourAnswerPage
     // postCheckYourAnswerPage,
     // getSubmissionPage
   )
