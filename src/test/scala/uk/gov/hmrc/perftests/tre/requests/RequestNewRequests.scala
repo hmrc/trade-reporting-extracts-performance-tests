@@ -54,7 +54,7 @@ object RequestNewRequests extends ServicesConfiguration {
   def postRequestTypePage: HttpRequestBuilder =
     http("posting type of data to download")
       .post(s"$baseUrl$route/data-download")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "import")
       .check(status.is(303))
 
@@ -68,7 +68,7 @@ object RequestNewRequests extends ServicesConfiguration {
   def postWhichEoripage: HttpRequestBuilder =
     http("posting Eori Number")
       .post(s"$baseUrl$route/which-eori")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "myEori")
       .check(status.is(303))
 
@@ -82,7 +82,7 @@ object RequestNewRequests extends ServicesConfiguration {
   def postReportRolePage: HttpRequestBuilder =
     http("posting user role in the report")
       .post(s"$baseUrl$route/your-role")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value[0]", "declarant")
       .formParam("value[1]", "importer")
       .check(status.is(303))
@@ -97,7 +97,7 @@ object RequestNewRequests extends ServicesConfiguration {
   def postReportSubtypeSelectionPage: HttpRequestBuilder =
     http("posting owner of the Eori Number role")
       .post(s"$baseUrl$route/import-report-type")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value[0]", "importHeader")
       .formParam("value[1]", "importItem")
       .formParam("value[2]", "importTaxLine")
@@ -113,7 +113,7 @@ object RequestNewRequests extends ServicesConfiguration {
   def postDateRangePage: HttpRequestBuilder =
     http("posting date range to cover reports")
       .post(s"$baseUrl$route/date-range")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "lastFullCalendarMonth")
       .check(status.is(303))
 
@@ -127,7 +127,7 @@ object RequestNewRequests extends ServicesConfiguration {
   def postReportNamePage: HttpRequestBuilder =
     http("posting name to identify reports")
       .post(s"$baseUrl$route/report-name")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "tre")
       .check(status.is(303))
 
@@ -141,7 +141,7 @@ object RequestNewRequests extends ServicesConfiguration {
   def postChooseToAddAnotherEmailPage: HttpRequestBuilder =
     http("posting choose to add email address page")
       .post(s"$baseUrl$route/add-another-email")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "false")
       .check(status.is(303))
 
@@ -155,7 +155,7 @@ object RequestNewRequests extends ServicesConfiguration {
   def postCheckYourAnswerPage: HttpRequestBuilder =
     http("posting to check answers page")
       .post(s"$baseUrl$route/check-your-answers")
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
   def getSubmissionPage: HttpRequestBuilder =

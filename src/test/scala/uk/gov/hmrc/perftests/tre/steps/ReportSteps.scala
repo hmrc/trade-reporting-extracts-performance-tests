@@ -22,7 +22,6 @@ import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
 import uk.gov.hmrc.perftests.tre.requests.LoginRquests._
 import uk.gov.hmrc.perftests.tre.requests.RequestNewRequests._
 
-
 trait ReportSteps extends PerformanceTestRunner {
 
   def LoginAndRequestNewReport(id: String, description: String): JourneyPart = setup(id, description).withRequests(
@@ -45,9 +44,9 @@ trait ReportSteps extends PerformanceTestRunner {
     postReportNamePage,
     getChooseToAddAnotherEmailPage,
     postChooseToAddAnotherEmailPage,
-    getCheckYourAnswerPage,
-    postCheckYourAnswerPage,
-    getSubmissionPage
+    getCheckYourAnswerPage
+    // postCheckYourAnswerPage,
+    // getSubmissionPage
   )
 
   def LoginAndCheckAvailableReports(id: String, description: String): JourneyPart = setup(id, description).withRequests(
