@@ -21,6 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import support.models.UserCredentials
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.tre.requests.RequestsHelper.saveCsrfToken
 
 object LoginRquests extends ServicesConfiguration {
 
@@ -30,11 +31,13 @@ object LoginRquests extends ServicesConfiguration {
   def getLoginPage: HttpRequestBuilder = http("Get AuthWiz Login Page")
     .get(authURL + s"/auth-login-stub/gg-sign-in")
     .check(status.is(200))
+    .check(saveCsrfToken)
 
   def postLoginPage(userCredentials: UserCredentials): HttpRequestBuilder = {
     val builder = http("Sign in through AuthWiz")
       .post(s"$authURL/auth-login-stub/gg-sign-in")
-      .formParam("redirectionUrl", s"$baseURL/request-customs-declaration-data/dashboard")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("redirectionUrl", "/request-customs-declaration-data/dashboard")
       .formParam("credentialStrength", "strong")
       .formParam("confidenceLevel", "50")
       .formParam("affinityGroup", userCredentials.affinityGroup.toString)
