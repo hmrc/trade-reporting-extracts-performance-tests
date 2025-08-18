@@ -23,6 +23,6 @@ object EnrolmentsDataBuilder {
   val anEnrolmentsData: EnrolmentsData = EnrolmentsData(
     enrolmentKey = "HMRC-CUS-ORG",
     identifierName = "EORINumber",
-    identifierValue = "GB123456789020"
+    identifierValue = "GB123456789019"
   )
 }
