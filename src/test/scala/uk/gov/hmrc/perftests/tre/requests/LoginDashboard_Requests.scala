@@ -21,20 +21,17 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import support.models.UserCredentials
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.tre.requests.RequestsHelper.saveCsrfToken
+import uk.gov.hmrc.perftests.tre.requests.Helper_Requests._
 
-object LoginRquests extends ServicesConfiguration {
+object LoginDashboard_Requests extends ServicesConfiguration {
 
-  val authURL: String = baseUrlFor("auth-login-stub")
-  val baseURL: String = baseUrlFor("trade-reporting-extracts")
-
-  def getLoginPage: HttpRequestBuilder = http("Get AuthWiz Login Page")
+  def getLoginPage: HttpRequestBuilder = http("GET: Navigate to AuthWiz login page")
     .get(authURL + s"/auth-login-stub/gg-sign-in")
     .check(status.is(200))
     .check(saveCsrfToken)
 
   def postLoginPage(userCredentials: UserCredentials): HttpRequestBuilder = {
-    val builder = http("Sign in through AuthWiz")
+    val builder = http("POST: Sign in through AuthWiz")
       .post(s"$authURL/auth-login-stub/gg-sign-in")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("redirectionUrl", "/request-customs-declaration-data/dashboard")
@@ -58,4 +55,15 @@ object LoginRquests extends ServicesConfiguration {
       case None => builder.check(status.is(303))
     }
   }
+
+  def getGuidancePage: HttpRequestBuilder =
+    http("[ACC-1] GET: Navigate to guidance page")
+      .get(s"$baseURL$baseRoute/")
+      .check(status.is(200))
+
+  def getDashboardPage: HttpRequestBuilder =
+    http("[ACC-2] GET: Navigate to dashboard page")
+      .get(s"$baseURL$baseRoute/dashboard")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
 }

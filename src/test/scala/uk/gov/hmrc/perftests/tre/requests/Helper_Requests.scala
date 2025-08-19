@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,16 @@ package uk.gov.hmrc.perftests.tre.requests
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.http.request.builder.HttpRequestBuilder
+import io.gatling.http.check.HttpCheck
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
-object RequestedReportsRequests extends ServicesConfiguration {
+object Helper_Requests extends ServicesConfiguration {
+  // Tokens and Cookies
+  val authCookie: String       = "mdtp=${mdtpCookie}"
+  def saveCsrfToken: HttpCheck = css("input[name=csrfToken]", "value").saveAs("csrfToken")
 
-  def actionName: HttpRequestBuilder =
-    http("Do an action")
-      .get(s"")
-      .check(status.is(200))
-
+  // URLs
+  val authURL: String = baseUrlFor("auth-login-stub")
+  val baseURL: String   = baseUrlFor("trade-reporting-extracts")
+  val baseRoute: String = "/request-customs-declaration-data"
 }
