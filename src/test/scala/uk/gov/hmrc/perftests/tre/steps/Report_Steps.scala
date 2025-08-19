@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.perftests.tre.steps
 
-import support.builders.UserCredentialsBuilder.anOrganisationUserWithKnownEnrolment
+// import support.builders.UserCredentialsBuilder.anOrganisationUserWithKnownEnrolment
 import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
 
 import uk.gov.hmrc.perftests.tre.requests.LoginDashboard_Requests._
@@ -24,11 +24,11 @@ import uk.gov.hmrc.perftests.tre.requests.RequestNewReport_Requests._
 
 trait ReportSteps extends PerformanceTestRunner {
 
-  def LoginAndRequestNewReport(id: String, description: String): JourneyPart = 
+  def LoginAndRequestNewReport(id: String, description: String): JourneyPart =
     setup(id, description).withRequests(
       getGuidancePage,
       getLoginPage,
-      postLoginPage(anOrganisationUserWithKnownEnrolment),
+      postAuthWizLogin("${userEori}"),
       getDashboardPage,
       getRequestReportStartPage,
       getRequestTypePage,
@@ -50,11 +50,11 @@ trait ReportSteps extends PerformanceTestRunner {
       getSubmissionPage
     )
 
-  def LoginAndCheckAvailableReports(id: String, description: String): JourneyPart = 
+  def LoginAndCheckAvailableReports(id: String, description: String): JourneyPart =
     setup(id, description).withRequests(
       getGuidancePage,
       getLoginPage,
-      postLoginPage(anOrganisationUserWithKnownEnrolment),
+      postAuthWizLogin("${userEori}"),
       getDashboardPage
     )
 
@@ -62,7 +62,7 @@ trait ReportSteps extends PerformanceTestRunner {
     setup(id, description).withRequests(
       getGuidancePage,
       getLoginPage,
-      postLoginPage(anOrganisationUserWithKnownEnrolment),
+      postAuthWizLogin("${userEori}"),
       getDashboardPage
     )
 }

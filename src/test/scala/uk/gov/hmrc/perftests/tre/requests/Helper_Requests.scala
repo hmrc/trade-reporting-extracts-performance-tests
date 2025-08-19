@@ -16,18 +16,40 @@
 
 package uk.gov.hmrc.perftests.tre.requests
 
+import scala.util.Random
+import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.check.HttpCheck
+
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object Helper_Requests extends ServicesConfiguration {
+
+  // Randomisation of EORI per session, simulating multiple users. Accessed from session by "${userEori}".
+  private def generateRandomNumberOfLength: String = {
+    val random = new Random()
+    (1 to 9).map(_ => random.nextInt(9)).mkString
+  }
+
+  val setupSession: List[ActionBuilder] =
+    exec { (session: Session) =>
+      val nextId = generateRandomNumberOfLength
+      val eori   = s"GB$nextId" + "123"
+
+      session.setAll(
+        List(
+          "userEori" -> eori
+        )
+      )
+    }.actionBuilders
+
   // Tokens and Cookies
   val authCookie: String       = "mdtp=${mdtpCookie}"
   def saveCsrfToken: HttpCheck = css("input[name=csrfToken]", "value").saveAs("csrfToken")
 
   // URLs
-  val authURL: String = baseUrlFor("auth-login-stub")
+  val authURL: String   = baseUrlFor("auth-login-stub")
   val baseURL: String   = baseUrlFor("trade-reporting-extracts")
   val baseRoute: String = "/request-customs-declaration-data"
 }

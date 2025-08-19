@@ -19,42 +19,60 @@ package uk.gov.hmrc.perftests.tre.requests
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
-import support.models.UserCredentials
+// import support.models.UserCredentials
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.tre.requests.Helper_Requests._
 
 object LoginDashboard_Requests extends ServicesConfiguration {
 
-  def getLoginPage: HttpRequestBuilder = http("GET: Navigate to AuthWiz login page")
+  def getLoginPage: HttpRequestBuilder = http("[ACC-0] GET: Navigate to AuthWiz login page")
     .get(authURL + s"/auth-login-stub/gg-sign-in")
     .check(status.is(200))
     .check(saveCsrfToken)
 
-  def postLoginPage(userCredentials: UserCredentials): HttpRequestBuilder = {
-    val builder = http("POST: Sign in through AuthWiz")
+  // def postLoginPage(userCredentials: UserCredentials): HttpRequestBuilder = {
+  //   val builder = http("POST: Sign in through AuthWiz")
+  //     .post(s"$authURL/auth-login-stub/gg-sign-in")
+  //     .formParam("csrfToken", "#{csrfToken}")
+  //     .formParam("redirectionUrl", "/request-customs-declaration-data/dashboard")
+  //     .formParam("credentialStrength", "strong")
+  //     .formParam("confidenceLevel", "50")
+  //     .formParam("affinityGroup", userCredentials.affinityGroup.toString)
+  //     .formParam("credentialRole", userCredentials.credentialRole.toString)
+  //     .formParam("email", "user@test.com")
+  //     .formParam("authorityId", "")
+
+  //   userCredentials.enrolmentsData match {
+  //     case Some(data) =>
+  //       builder
+  //         .formParam("enrolment[0].name", data.enrolmentKey)
+  //         .formParam("enrolment[0].taxIdentifier[0].name", data.identifierName)
+  //         .formParam("enrolment[0].taxIdentifier[0].value", data.identifierValue)
+  //         .formParam("enrolment[0].state", "Activated")
+  //         .check(status.is(303))
+  //         .check(headerRegex("Set-Cookie", """mdtp=(.*)""").saveAs("mdtpCookie"))
+
+  //     case None => builder.check(status.is(303))
+  //   }
+  // }
+
+  def postAuthWizLogin(EoriNumber: String): HttpRequestBuilder =
+    http("[ACC-0] POST: Sign in through AuthWiz")
       .post(s"$authURL/auth-login-stub/gg-sign-in")
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("redirectionUrl", "/request-customs-declaration-data/dashboard")
+      .formParam("redirectionUrl", s"$baseURL$baseRoute/dashboard")
       .formParam("credentialStrength", "strong")
       .formParam("confidenceLevel", "50")
-      .formParam("affinityGroup", userCredentials.affinityGroup.toString)
-      .formParam("credentialRole", userCredentials.credentialRole.toString)
+      .formParam("affinityGroup", "Individual")
+      .formParam("credentialRole", "User")
       .formParam("email", "user@test.com")
       .formParam("authorityId", "")
-
-    userCredentials.enrolmentsData match {
-      case Some(data) =>
-        builder
-          .formParam("enrolment[0].name", data.enrolmentKey)
-          .formParam("enrolment[0].taxIdentifier[0].name", data.identifierName)
-          .formParam("enrolment[0].taxIdentifier[0].value", data.identifierValue)
-          .formParam("enrolment[0].state", "Activated")
-          .check(status.is(303))
-          .check(headerRegex("Set-Cookie", """mdtp=(.*)""").saveAs("mdtpCookie"))
-
-      case None => builder.check(status.is(303))
-    }
-  }
+      .formParam("enrolment[0].name", "HMRC-CUS-ORG")
+      .formParam("enrolment[0].taxIdentifier[0].name", "EORINumber")
+      .formParam("enrolment[0].taxIdentifier[0].value", EoriNumber)
+      .formParam("enrolment[0].state", "Activated")
+      .check(status.is(303))
+      .check(headerRegex("Set-Cookie", """mdtp=(.*)""").saveAs("mdtpCookie"))
 
   def getGuidancePage: HttpRequestBuilder =
     http("[ACC-1] GET: Navigate to guidance page")
