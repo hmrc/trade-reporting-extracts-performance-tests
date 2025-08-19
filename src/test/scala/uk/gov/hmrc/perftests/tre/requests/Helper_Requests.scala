@@ -49,7 +49,7 @@ object Helper_Requests extends ServicesConfiguration {
   def saveCsrfToken: HttpCheck = css("input[name=csrfToken]", "value").saveAs("csrfToken")
 
   // URLs
-  val authURL: String   = baseUrlFor("auth-login-stub")
+  val authURL: String   = baseUrlFor("auth-login-stub") + "/auth-login-stub/gg-sign-in"
   val baseURL: String   = baseUrlFor("trade-reporting-extracts")
   val baseRoute: String = "/request-customs-declaration-data"
 }

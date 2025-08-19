@@ -26,39 +26,13 @@ import uk.gov.hmrc.perftests.tre.requests.Helper_Requests._
 object LoginDashboard_Requests extends ServicesConfiguration {
 
   def getLoginPage: HttpRequestBuilder = http("[ACC-0] GET: Navigate to AuthWiz login page")
-    .get(authURL + s"/auth-login-stub/gg-sign-in")
+    .get(authURL)
     .check(status.is(200))
     .check(saveCsrfToken)
 
-  // def postLoginPage(userCredentials: UserCredentials): HttpRequestBuilder = {
-  //   val builder = http("POST: Sign in through AuthWiz")
-  //     .post(s"$authURL/auth-login-stub/gg-sign-in")
-  //     .formParam("csrfToken", "#{csrfToken}")
-  //     .formParam("redirectionUrl", "/request-customs-declaration-data/dashboard")
-  //     .formParam("credentialStrength", "strong")
-  //     .formParam("confidenceLevel", "50")
-  //     .formParam("affinityGroup", userCredentials.affinityGroup.toString)
-  //     .formParam("credentialRole", userCredentials.credentialRole.toString)
-  //     .formParam("email", "user@test.com")
-  //     .formParam("authorityId", "")
-
-  //   userCredentials.enrolmentsData match {
-  //     case Some(data) =>
-  //       builder
-  //         .formParam("enrolment[0].name", data.enrolmentKey)
-  //         .formParam("enrolment[0].taxIdentifier[0].name", data.identifierName)
-  //         .formParam("enrolment[0].taxIdentifier[0].value", data.identifierValue)
-  //         .formParam("enrolment[0].state", "Activated")
-  //         .check(status.is(303))
-  //         .check(headerRegex("Set-Cookie", """mdtp=(.*)""").saveAs("mdtpCookie"))
-
-  //     case None => builder.check(status.is(303))
-  //   }
-  // }
-
   def postAuthWizLogin(EoriNumber: String): HttpRequestBuilder =
     http("[ACC-0] POST: Sign in through AuthWiz")
-      .post(s"$authURL/auth-login-stub/gg-sign-in")
+      .post(authURL)
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("redirectionUrl", s"$baseURL$baseRoute/dashboard")
       .formParam("credentialStrength", "strong")
