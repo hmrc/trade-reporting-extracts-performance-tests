@@ -16,18 +16,16 @@
 
 package uk.gov.hmrc.perftests.tre.steps
 
-import support.builders.UserCredentialsBuilder.anOrganisationUserWithKnownEnrolment
+// import support.builders.UserCredentialsBuilder.anOrganisationUserWithKnownEnrolment
 import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
 
-import uk.gov.hmrc.perftests.tre.requests.LoginRquests._
-import uk.gov.hmrc.perftests.tre.requests.RequestNewRequests._
-// YourDetailsRequests._
+import uk.gov.hmrc.perftests.tre.requests.LoginDashboard_Requests._
 
 trait YourAccount extends PerformanceTestRunner {
 
   def journeyNameHere(id: String, description: String): JourneyPart = setup(id, description).withRequests(
     getLoginPage,
-    postLoginPage(anOrganisationUserWithKnownEnrolment),
+    postAuthWizLogin("${userEori}"),
     getDashboardPage
     // Open link...
     // Do more stuff...

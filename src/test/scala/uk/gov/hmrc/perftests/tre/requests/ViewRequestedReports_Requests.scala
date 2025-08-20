@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package support.builders
+package uk.gov.hmrc.perftests.tre.requests
 
-import support.models.EnrolmentsData
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.http.request.builder.HttpRequestBuilder
+import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
-object EnrolmentsDataBuilder {
+object ViewRequestedReports_Requests extends ServicesConfiguration {
 
-  val anEnrolmentsData: EnrolmentsData = EnrolmentsData(
-    enrolmentKey = "HMRC-CUS-ORG",
-    identifierName = "EORINumber",
-    identifierValue = "GB123456789020"
-  )
+  def actionName: HttpRequestBuilder =
+    http("Do an action")
+      .get(s"")
+      .check(status.is(200))
+
 }
