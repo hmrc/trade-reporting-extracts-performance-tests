@@ -17,7 +17,6 @@
 package uk.gov.hmrc.perftests.tre.requests
 
 import scala.util.Random
-import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.check.HttpCheck
@@ -27,22 +26,11 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 object Helper_Requests extends ServicesConfiguration {
 
   // Randomisation of EORI per session, simulating multiple users. Accessed from session by "${userEori}".
-  private def generateRandomNumberOfLength: String = {
-    val random = new Random()
-    (1 to 9).map(_ => random.nextInt(9)).mkString
+
+  def generateRandEORI(): String = {
+    val randID = (1 to 9).map(_ => new Random().nextInt(9)).mkString
+    return s"GB$randID" + "123"
   }
-
-  val setupSession: List[ActionBuilder] =
-    exec { (session: Session) =>
-      val nextId = generateRandomNumberOfLength
-      val eori   = s"GB$nextId" + "123"
-
-      session.setAll(
-        List(
-          "userEori" -> eori
-        )
-      )
-    }.actionBuilders
 
   // Tokens and Cookies
   val authCookie: String       = "mdtp=${mdtpCookie}"

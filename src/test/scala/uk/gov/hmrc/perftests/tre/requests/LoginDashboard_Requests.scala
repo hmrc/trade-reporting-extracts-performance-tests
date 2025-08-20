@@ -47,13 +47,8 @@ object LoginDashboard_Requests extends ServicesConfiguration {
       .check(status.is(303))
       .check(headerRegex("Set-Cookie", """mdtp=(.*)""").saveAs("mdtpCookie"))
 
-  def getGuidancePage: HttpRequestBuilder =
-    http("[ACC-1] GET: Navigate to guidance page")
-      .get(s"$baseURL$baseRoute/")
-      .check(status.is(200))
-
   def getDashboardPage: HttpRequestBuilder =
-    http("[ACC-2] GET: Navigate to dashboard page")
+    http("[ACC-1] GET: Navigate to dashboard page")
       .get(s"$baseURL$baseRoute/dashboard")
       .header("Cookie", authCookie)
       .check(status.is(200))
