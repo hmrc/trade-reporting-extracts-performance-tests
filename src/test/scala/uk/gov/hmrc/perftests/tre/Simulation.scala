@@ -22,17 +22,17 @@ import uk.gov.hmrc.perftests.tre.steps._
 class Simulation extends PerformanceTestRunner with ReportSteps with YourAccount {
 
   // Reports
-  LoginAndRequestNewReport(
-    id = "login-and-request-new-report",
-    description = "Journey 1: User requests a new report."
+  LogInAndRequestNewReport(
+    id = "log-In-and-request-new-report",
+    description = "Journey 1: Request new report."
   )
-  LoginAndCheckAvailableReports(
-    id = "login-and-check-available-reports",
-    description = "Journey 2: User checks their requested reports."
+  LogInAndCheckRequestedReports(
+    id = "log-In-and-check-requested-reports",
+    description = "Journey 2: View reports requested."
   )
-  LoginAndCheckDownloadableReports(
-    id = "login-and-check-downloadable-reports",
-    description = "Journey 3: User checks reports available for download."
+  LogInAndCheckDownloadableReports(
+    id = "log-In-and-check-downloadable-reports",
+    description = "Journey 3: View reports for download."
   )
 
   // Account

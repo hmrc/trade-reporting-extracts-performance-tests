@@ -25,11 +25,10 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object Helper_Requests extends ServicesConfiguration {
 
-  // Randomisation of EORI per session, simulating multiple users. Accessed from session by "${userEori}".
-
+  // Randomisation of EORI per session, simulating multiple users.
   def generateRandEORI(): String = {
-    val randID = (1 to 9).map(_ => new Random().nextInt(9)).mkString
-    return s"GB$randID" + "123"
+    val randID = (1 to 12).map(_ => new Random().nextInt(9)).mkString
+    return s"GB$randID"
   }
 
   // Tokens and Cookies
