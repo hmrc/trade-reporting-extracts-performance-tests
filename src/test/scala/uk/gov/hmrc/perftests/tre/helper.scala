@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.perftests.tre.requests
+package uk.gov.hmrc.perftests.tre
 
 import scala.util.Random
 import io.gatling.core.Predef._
@@ -23,7 +23,7 @@ import io.gatling.http.check.HttpCheck
 
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
-object Helper_Requests extends ServicesConfiguration {
+object helper extends ServicesConfiguration {
 
   // Randomisation of EORI per session, simulating multiple users.
   def generateRandEORI(): String = {

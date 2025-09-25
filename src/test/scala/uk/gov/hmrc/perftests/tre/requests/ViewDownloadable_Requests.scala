@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.tre.requests.Helper_Requests._
+import uk.gov.hmrc.perftests.tre.helper._
 
 object ViewDownloadable_Requests extends ServicesConfiguration {
 

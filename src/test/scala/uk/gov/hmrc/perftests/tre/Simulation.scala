@@ -16,27 +16,8 @@
 
 package uk.gov.hmrc.perftests.tre
 
-import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.tre.steps._
 
-class Simulation extends PerformanceTestRunner with ReportSteps with YourAccount {
-
-  // Reports
-  LogInAndRequestNewReport(
-    id = "log-In-and-request-new-report",
-    description = "Journey 1: Request new report."
-  )
-  LogInAndCheckRequestedReports(
-    id = "log-In-and-check-requested-reports",
-    description = "Journey 2: View reports requested."
-  )
-  LogInAndCheckDownloadableReports(
-    id = "log-In-and-check-downloadable-reports",
-    description = "Journey 3: View reports for download."
-  )
-
-  // Account
-  // journeyNameHere()...
-
+class Simulation extends Report_Steps with DataAccess_Steps {
   runSimulation()
 }

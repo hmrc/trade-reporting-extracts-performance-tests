@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.tre.requests.Helper_Requests._
+import uk.gov.hmrc.perftests.tre.helper._
 
 object AddThirdParty_Requests extends ServicesConfiguration {
 
@@ -29,4 +29,32 @@ object AddThirdParty_Requests extends ServicesConfiguration {
       .get(s"$baseURL$baseRoute/add-a-third-party")
       .header("Cookie", authCookie)
       .check(status.is(200))
+
+  def getImporterOrExporterPage: HttpRequestBuilder =
+    http("[ADD-2] GET: Navigate to the 'Importer' or 'Exporter' page.")
+      .get(s"$baseURL$baseRoute/importer-or-exporter")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+      .check(saveCsrfToken)
+
+  def postImporterOrExporterPage: HttpRequestBuilder =
+    http("[ADD-2] POST: posting 'yes'.")
+      .post(s"$baseURL$baseRoute/importer-or-exporter")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("value", "true")
+      .check(status.is(303))
+
+  def getEORINumberPage: HttpRequestBuilder =
+    http("[ADD-3] GET: Navigate to the enter EORI number page.")
+      .get(s"$baseURL$baseRoute/eori-number")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+      .check(saveCsrfToken)
+
+  def postEORINumberPage: HttpRequestBuilder =
+    http("[ADD-3] POST: posting EORI number 'GB1234567890123'.")
+      .post(s"$baseURL$baseRoute/eori-number")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("value", "GB1234567890123")
+      .check(status.is(303))
 }

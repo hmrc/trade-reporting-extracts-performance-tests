@@ -16,58 +16,50 @@
 
 package uk.gov.hmrc.perftests.tre.steps
 
-import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
+import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 
-import uk.gov.hmrc.perftests.tre.requests.Helper_Requests.generateRandEORI
-import uk.gov.hmrc.perftests.tre.requests._
+import uk.gov.hmrc.perftests.tre.helper.generateRandEORI
+import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashboard, RequestNewReport_Requests => requestNewReport, ViewDownloadable_Requests => viewDownloadable, ViewRequested_Requests => viewRequested}
 
-trait ReportSteps extends PerformanceTestRunner {
+trait Report_Steps extends PerformanceTestRunner {
 
-  val randEORI = generateRandEORI()
+  private val randEORI = generateRandEORI()
 
-  val loginDashboard   = LoginDashboard_Requests
-  val requestNewReport = RequestNewReport_Requests
-  val viewRequested    = ViewRequested_Requests
-  val viewDownloadable = ViewDownloadable_Requests
+  setup("log-in-and-request-new-report", "Reports 1: Request new report.").withRequests(
+    loginDashboard.getLoginPage,
+    loginDashboard.postAuthWizLogin(randEORI),
+    loginDashboard.getDashboardPage,
+    requestNewReport.getRequestReportStartPage,
+    requestNewReport.getRequestTypePage,
+    requestNewReport.postRequestTypePage,
+    requestNewReport.getWhichEoriPage,
+    requestNewReport.postWhichEoripage,
+    requestNewReport.getReportRolePage,
+    requestNewReport.postReportRolePage,
+    requestNewReport.getReportSubtypeSelectionPage,
+    requestNewReport.postReportSubtypeSelectionPage,
+    requestNewReport.getDateRangePage,
+    requestNewReport.postDateRangePage,
+    requestNewReport.getReportNamePage,
+    requestNewReport.postReportNamePage,
+    requestNewReport.getChooseToAddAnotherEmailPage,
+    requestNewReport.postChooseToAddAnotherEmailPage,
+    requestNewReport.getCheckYourAnswerPage,
+    requestNewReport.postCheckYourAnswerPage,
+    requestNewReport.getSubmissionPage
+  )
 
-  def LogInAndRequestNewReport(id: String, description: String): JourneyPart =
-    setup(id, description).withRequests(
-      loginDashboard.getLoginPage,
-      loginDashboard.postAuthWizLogin(randEORI),
-      loginDashboard.getDashboardPage,
-      requestNewReport.getRequestReportStartPage,
-      requestNewReport.getRequestTypePage,
-      requestNewReport.postRequestTypePage,
-      requestNewReport.getWhichEoriPage,
-      requestNewReport.postWhichEoripage,
-      requestNewReport.getReportRolePage,
-      requestNewReport.postReportRolePage,
-      requestNewReport.getReportSubtypeSelectionPage,
-      requestNewReport.postReportSubtypeSelectionPage,
-      requestNewReport.getDateRangePage,
-      requestNewReport.postDateRangePage,
-      requestNewReport.getReportNamePage,
-      requestNewReport.postReportNamePage,
-      requestNewReport.getChooseToAddAnotherEmailPage,
-      requestNewReport.postChooseToAddAnotherEmailPage,
-      requestNewReport.getCheckYourAnswerPage,
-      requestNewReport.postCheckYourAnswerPage,
-      requestNewReport.getSubmissionPage
-    )
+  setup("log-in-and-check-requested-reports", "Reports 2: View reports requested.").withRequests(
+    loginDashboard.getLoginPage,
+    loginDashboard.postAuthWizLogin(randEORI),
+    loginDashboard.getDashboardPage,
+    viewRequested.getViewRequestedReportsPage
+  )
 
-  def LogInAndCheckRequestedReports(id: String, description: String): JourneyPart =
-    setup(id, description).withRequests(
-      loginDashboard.getLoginPage,
-      loginDashboard.postAuthWizLogin(randEORI),
-      loginDashboard.getDashboardPage,
-      viewRequested.getViewRequestedReportsPage
-    )
-
-  def LogInAndCheckDownloadableReports(id: String, description: String): JourneyPart =
-    setup(id, description).withRequests(
-      loginDashboard.getLoginPage,
-      loginDashboard.postAuthWizLogin(randEORI),
-      loginDashboard.getDashboardPage,
-      viewDownloadable.getViewDownloadableReportsPage
-    )
+  setup("log-in-and-check-downloadable-reports", "Reports 3: View reports for download.").withRequests(
+    loginDashboard.getLoginPage,
+    loginDashboard.postAuthWizLogin(randEORI),
+    loginDashboard.getDashboardPage,
+    viewDownloadable.getViewDownloadableReportsPage
+  )
 }

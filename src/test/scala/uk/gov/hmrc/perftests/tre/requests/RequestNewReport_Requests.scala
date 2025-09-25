@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.tre.requests.Helper_Requests._
+import uk.gov.hmrc.perftests.tre.helper._
 
 object RequestNewReport_Requests extends ServicesConfiguration {
 
@@ -125,7 +125,7 @@ object RequestNewReport_Requests extends ServicesConfiguration {
       .check(saveCsrfToken)
 
   def postChooseToAddAnotherEmailPage: HttpRequestBuilder =
-    http("[REQ-13] POST: posting choose to add email address page")
+    http("[REQ-12] POST: posting choose to add email address page")
       .post(s"$baseURL$baseRoute/add-another-email")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "false")
