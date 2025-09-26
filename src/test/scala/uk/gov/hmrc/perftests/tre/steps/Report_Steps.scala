@@ -23,11 +23,9 @@ import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashb
 
 trait Report_Steps extends PerformanceTestRunner {
 
-  private val randEORI = generateRandEORI()
-
-  setup("log-in-and-request-new-report", "Reports 1: Request new report.").withRequests(
+  setup("request-new-report", "Reports 1: Request new report.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin(randEORI),
+    loginDashboard.postAuthWizLogin(generateRandEORI()),
     loginDashboard.getDashboardPage,
     requestNewReport.getRequestReportStartPage,
     requestNewReport.getRequestTypePage,
@@ -49,16 +47,16 @@ trait Report_Steps extends PerformanceTestRunner {
     requestNewReport.getSubmissionPage
   )
 
-  setup("log-in-and-check-requested-reports", "Reports 2: View reports requested.").withRequests(
+  setup("requested-reports", "Reports 2: View reports requested.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin(randEORI),
+    loginDashboard.postAuthWizLogin(generateRandEORI()),
     loginDashboard.getDashboardPage,
     viewRequested.getViewRequestedReportsPage
   )
 
-  setup("log-in-and-check-downloadable-reports", "Reports 3: View reports for download.").withRequests(
+  setup("downloadable-reports", "Reports 3: View reports for download.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin(randEORI),
+    loginDashboard.postAuthWizLogin(generateRandEORI()),
     loginDashboard.getDashboardPage,
     viewDownloadable.getViewDownloadableReportsPage
   )

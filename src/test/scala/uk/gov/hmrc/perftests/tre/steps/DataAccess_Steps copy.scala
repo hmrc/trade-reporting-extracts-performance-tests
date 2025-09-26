@@ -23,15 +23,31 @@ import uk.gov.hmrc.perftests.tre.requests.{AddThirdParty_Requests => addThirdPar
 
 trait DataAccess_Steps extends PerformanceTestRunner {
 
-  private val randEORI = generateRandEORI()
-
-  setup("log-in-and-add-third-party", "DataAccess J1: Add a third party.").withRequests(
+  setup("add-third-party", "DataAccess J1: Add a third party.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin(randEORI),
+    loginDashboard.postAuthWizLogin(generateRandEORI()),
     loginDashboard.getDashboardPage,
     addThirdParty.getAddThirdPartyStartPage,
     addThirdParty.getImporterOrExporterPage,
     addThirdParty.postImporterOrExporterPage,
-    addThirdParty.getEORINumberPage
+    addThirdParty.getEORINumberPage,
+    addThirdParty.postEORINumberPage(generateRandEORI()),
+    addThirdParty.getConfirmEORIPage,
+    addThirdParty.postConfirmEORIPage,
+    addThirdParty.getAccessStartPage,
+    addThirdParty.postAccessStartPage,
+    addThirdParty.getAccessEndPage,
+    addThirdParty.postAccessEndPage,
+    addThirdParty.getTypeOfDataPage,
+    addThirdParty.postTypeOfDataPage,
+    addThirdParty.getGiveDataAccess,
+    addThirdParty.postGiveDataAccess,
+    addThirdParty.getDataAccessStart,
+    addThirdParty.postDataAccessStart,
+    addThirdParty.getDataAccessEnd,
+    addThirdParty.postDataAccessEnd,
+    addThirdParty.getCheckAnswersPage
+    // addThirdParty.postCheckAnswersPage,
+    // addThirdParty.getConfirmAnswersPage
   )
 }
