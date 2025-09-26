@@ -85,9 +85,9 @@ object AddThirdParty_Requests extends ServicesConfiguration {
     http(s"[ADD-6] POST: posting today's date.")
       .post(s"$baseURL$baseRoute/access-start-date")
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value.day", "25")
-      .formParam("value.month", "9")
-      .formParam("value.year", "2025")
+      .formParam("value.day", getDateMinusYears("dd", 0))
+      .formParam("value.month", getDateMinusYears("MM", 0))
+      .formParam("value.year", getDateMinusYears("yyyy", 0))
       .check(status.is(303))
 
   def getAccessEndPage: HttpRequestBuilder =
@@ -143,9 +143,9 @@ object AddThirdParty_Requests extends ServicesConfiguration {
     http(s"[ADD-10] POST: posting a date four years ago from today")
       .post(s"$baseURL$baseRoute/data-start-date")
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value.day", "25")
-      .formParam("value.month", "9")
-      .formParam("value.year", "2021")
+      .formParam("value.day", getDateMinusYears("dd", 4))
+      .formParam("value.month", getDateMinusYears("MM", 4))
+      .formParam("value.year", getDateMinusYears("yyyy", 4))
       .check(status.is(303))
 
   def getDataAccessEnd: HttpRequestBuilder =

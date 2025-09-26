@@ -21,6 +21,9 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.check.HttpCheck
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object helper extends ServicesConfiguration {
@@ -39,4 +42,8 @@ object helper extends ServicesConfiguration {
   val authURL: String   = baseUrlFor("auth-login-stub") + "/auth-login-stub/gg-sign-in"
   val baseURL: String   = baseUrlFor("trade-reporting-extracts")
   val baseRoute: String = "/request-customs-declaration-data"
+
+  // Functions
+  def getDateMinusYears(format: String = "dd-MM-yyyy", yearsToReduce: Int = 0): String =
+    LocalDateTime.now().minusYears(yearsToReduce).format(DateTimeFormatter.ofPattern(format))
 }
