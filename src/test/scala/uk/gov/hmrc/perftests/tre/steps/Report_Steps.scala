@@ -16,50 +16,48 @@
 
 package uk.gov.hmrc.perftests.tre.steps
 
-import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
+import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 
-import uk.gov.hmrc.perftests.tre.requests.Helper_Requests.generateRandEORI
-import uk.gov.hmrc.perftests.tre.requests.LoginDashboard_Requests._
-import uk.gov.hmrc.perftests.tre.requests.RequestNewReport_Requests._
+import uk.gov.hmrc.perftests.tre.helper.generateRandEORI
+import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashboard, RequestNewReport_Requests => requestNewReport, ViewDownloadable_Requests => viewDownloadable, ViewRequested_Requests => viewRequested}
 
-trait ReportSteps extends PerformanceTestRunner {
+trait Report_Steps extends PerformanceTestRunner {
 
-  def LoginAndRequestNewReport(id: String, description: String): JourneyPart =
-    setup(id, description).withRequests(
-      getLoginPage,
-      postAuthWizLogin(generateRandEORI()),
-      getDashboardPage,
-      getRequestReportStartPage,
-      getRequestTypePage,
-      postRequestTypePage,
-      getWhichEoriPage,
-      postWhichEoripage,
-      getReportRolePage,
-      postReportRolePage,
-      getReportSubtypeSelectionPage,
-      postReportSubtypeSelectionPage,
-      getDateRangePage,
-      postDateRangePage,
-      getReportNamePage,
-      postReportNamePage,
-      getChooseToAddAnotherEmailPage,
-      postChooseToAddAnotherEmailPage,
-      getCheckYourAnswerPage,
-      postCheckYourAnswerPage,
-      getSubmissionPage
-    )
+  setup("request-new-report", "Reports 1: Request new report.").withRequests(
+    loginDashboard.getLoginPage,
+    loginDashboard.postAuthWizLogin(generateRandEORI()),
+    loginDashboard.getDashboardPage,
+    requestNewReport.getRequestReportStartPage,
+    requestNewReport.getRequestTypePage,
+    requestNewReport.postRequestTypePage,
+    requestNewReport.getWhichEoriPage,
+    requestNewReport.postWhichEoripage,
+    requestNewReport.getReportRolePage,
+    requestNewReport.postReportRolePage,
+    requestNewReport.getReportSubtypeSelectionPage,
+    requestNewReport.postReportSubtypeSelectionPage,
+    requestNewReport.getDateRangePage,
+    requestNewReport.postDateRangePage,
+    requestNewReport.getReportNamePage,
+    requestNewReport.postReportNamePage,
+    requestNewReport.getChooseToAddAnotherEmailPage,
+    requestNewReport.postChooseToAddAnotherEmailPage,
+    requestNewReport.getCheckYourAnswerPage,
+    requestNewReport.postCheckYourAnswerPage,
+    requestNewReport.getSubmissionPage
+  )
 
-  def LoginAndCheckAvailableReports(id: String, description: String): JourneyPart =
-    setup(id, description).withRequests(
-      getLoginPage,
-      postAuthWizLogin(generateRandEORI()),
-      getDashboardPage
-    )
+  setup("requested-reports", "Reports 2: View reports requested.").withRequests(
+    loginDashboard.getLoginPage,
+    loginDashboard.postAuthWizLogin(generateRandEORI()),
+    loginDashboard.getDashboardPage,
+    viewRequested.getViewRequestedReportsPage
+  )
 
-  def LoginAndCheckDownloadableReports(id: String, description: String): JourneyPart =
-    setup(id, description).withRequests(
-      getLoginPage,
-      postAuthWizLogin(generateRandEORI()),
-      getDashboardPage
-    )
+  setup("downloadable-reports", "Reports 3: View reports for download.").withRequests(
+    loginDashboard.getLoginPage,
+    loginDashboard.postAuthWizLogin(generateRandEORI()),
+    loginDashboard.getDashboardPage,
+    viewDownloadable.getViewDownloadableReportsPage
+  )
 }

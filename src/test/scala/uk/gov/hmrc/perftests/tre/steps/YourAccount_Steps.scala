@@ -21,7 +21,7 @@ import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
 
 import uk.gov.hmrc.perftests.tre.requests.LoginDashboard_Requests._
 
-trait YourAccount extends PerformanceTestRunner {
+trait YourAccount_Steps extends PerformanceTestRunner {
 
   def journeyNameHere(id: String, description: String): JourneyPart = setup(id, description).withRequests(
     getLoginPage,

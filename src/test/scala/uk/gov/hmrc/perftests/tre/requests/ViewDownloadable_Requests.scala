@@ -20,12 +20,14 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.tre.helper._
 
-object ViewRequestedReports_Requests extends ServicesConfiguration {
+object ViewDownloadable_Requests extends ServicesConfiguration {
 
-  def actionName: HttpRequestBuilder =
-    http("Do an action")
-      .get(s"")
+  def getViewDownloadableReportsPage: HttpRequestBuilder =
+    http("[AVR-1] GET: Navigate to downloadable reports page.")
+      .get(s"$baseURL$baseRoute/available-to-download")
+      .header("Cookie", authCookie)
       .check(status.is(200))
 
 }
