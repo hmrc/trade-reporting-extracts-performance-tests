@@ -19,7 +19,7 @@ package uk.gov.hmrc.perftests.tre.steps
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 
 import uk.gov.hmrc.perftests.tre.helper.generateRandEORI
-import uk.gov.hmrc.perftests.tre.requests.{AddThirdParty_Requests => addThirdParty, LoginDashboard_Requests => loginDashboard}
+import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashboard, AddThirdParty_Requests => addThirdParty}
 
 trait DataAccess_Steps extends PerformanceTestRunner {
 
@@ -46,8 +46,8 @@ trait DataAccess_Steps extends PerformanceTestRunner {
     addThirdParty.postDataAccessStart,
     addThirdParty.getDataAccessEnd,
     addThirdParty.postDataAccessEnd,
-    addThirdParty.getCheckAnswersPage
-    // addThirdParty.postCheckAnswersPage,
-    // addThirdParty.getConfirmAnswersPage
+    addThirdParty.getCheckAnswersPage,
+    addThirdParty.postCheckAnswersPage,
+    addThirdParty.getConfirmAnswersPage
   )
 }

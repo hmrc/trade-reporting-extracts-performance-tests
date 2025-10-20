@@ -161,25 +161,22 @@ object AddThirdParty_Requests extends ServicesConfiguration {
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
-  // QA Note:
-  // Pending a fix to add the CsrfToken to the confirmation page -- it is not currently present.
-
   def getCheckAnswersPage: HttpRequestBuilder =
     http("[ADD-12] GET: Navigate to check answers page.")
       .get(s"$baseURL$baseRoute/check-your-answers-third-party")
       .header("Cookie", authCookie)
       .check(status.is(200))
-  // .check(saveCsrfToken)
+      .check(saveCsrfToken)
 
-  // def postCheckAnswersPage: HttpRequestBuilder =
-  //   http(s"[ADD-12] POST: posting check answers page")
-  //     .post(s"$baseURL$baseRoute/check-your-answers-third-party")
-  //     .formParam("csrfToken", "#{csrfToken}")
-  //     .check(status.is(303))
+  def postCheckAnswersPage: HttpRequestBuilder =
+    http(s"[ADD-12] POST: posting check answers page")
+      .post(s"$baseURL$baseRoute/check-your-answers-third-party")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
 
-  // def getConfirmAnswersPage: HttpRequestBuilder =
-  //   http("[ADD-13] GET: Navigate to confirmation page.")
-  //     .get(s"$baseURL$baseRoute/third-party-added-confirmation")
-  //     .header("Cookie", authCookie)
-  //     .check(status.is(200))
+  def getConfirmAnswersPage: HttpRequestBuilder =
+    http("[ADD-13] GET: Navigate to confirmation page.")
+      .get(s"$baseURL$baseRoute/third-party-added-confirmation")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
 }
