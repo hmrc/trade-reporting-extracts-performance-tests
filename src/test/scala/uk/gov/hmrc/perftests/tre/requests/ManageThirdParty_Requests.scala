@@ -1,0 +1,37 @@
+/*
+ * Copyright 2025 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package uk.gov.hmrc.perftests.tre.requests
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.http.request.builder.HttpRequestBuilder
+import uk.gov.hmrc.perftests.tre.helper._
+
+object ManageThirdParty_Requests {
+
+  def getManageThirdPartiesPage: HttpRequestBuilder =
+    http("[MTP-1] GET: Navigate to the manage third party access page.")
+      .get(s"$baseURL$baseRoute/manage-third-parties")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+
+  def getManageAsThirdPartyPage: HttpRequestBuilder =
+    http("[TPA-1] GET: Navigate to the manage as third party page.")
+      .get(s"$baseURL$baseRoute/businesses-you-have-access-to")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+}
