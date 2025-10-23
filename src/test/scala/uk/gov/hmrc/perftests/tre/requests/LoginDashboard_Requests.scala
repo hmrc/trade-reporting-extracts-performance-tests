@@ -28,7 +28,7 @@ object LoginDashboard_Requests {
     .check(status.is(200))
     .check(saveCsrfToken)
 
-  def postAuthWizLogin(specificLogin: String = ""): HttpRequestBuilder =
+  def postAuthWizLogin(EoriNumber: String = ""): HttpRequestBuilder =
     http("[ACC-0] POST: Sign in through AuthWiz")
       .post(authURL)
       .formParam("csrfToken", "#{csrfToken}")
@@ -43,8 +43,8 @@ object LoginDashboard_Requests {
       .formParam("enrolment[0].taxIdentifier[0].name", "EORINumber")
       .formParam(
         "enrolment[0].taxIdentifier[0].value",
-        if (specificLogin.isEmpty) { _ => generateRandEORI() }
-        else { specificLogin }
+        if (EoriNumber.isEmpty) { _ => generateRandEORI() }
+        else { EoriNumber }
       )
       .formParam("enrolment[0].state", "Activated")
       .check(status.is(303))
