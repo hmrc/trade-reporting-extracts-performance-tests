@@ -16,9 +16,6 @@
 
 package uk.gov.hmrc.perftests.tre.requests
 
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
@@ -26,9 +23,6 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.tre.helper._
 
 object RequestNewReport_Requests extends ServicesConfiguration {
-
-  def getDateMinusDays(format: String = "dd-MM-yyyy", daysToReduce: Int = 0): String =
-    LocalDateTime.now().minusDays(daysToReduce).format(DateTimeFormatter.ofPattern(format))
 
   def getRequestReportStartPage: HttpRequestBuilder =
     http("[REQ-1] GET: Navigate to the starting page")
@@ -136,9 +130,9 @@ object RequestNewReport_Requests extends ServicesConfiguration {
     http("[REQ-9] POST: posting an end date 3 days ago from today")
       .post(s"$baseURL$baseRoute/end-date")
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value.day", getDateMinusDays("dd", 3))
-      .formParam("value.month", getDateMinusDays("MM", 3))
-      .formParam("value.year", getDateMinusDays("YYYY", 3))
+      .formParam("value.day", getDateMinusDays("dd", 5))
+      .formParam("value.month", getDateMinusDays("MM", 5))
+      .formParam("value.year", getDateMinusDays("YYYY", 5))
       .check(status.is(303))
 
   def getReportNamePage: HttpRequestBuilder =
