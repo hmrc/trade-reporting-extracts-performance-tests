@@ -16,18 +16,23 @@
 
 package uk.gov.hmrc.perftests.tre.steps
 
-// import support.builders.UserCredentialsBuilder.anOrganisationUserWithKnownEnrolment
-import uk.gov.hmrc.performance.simulation.{JourneyPart, PerformanceTestRunner}
-
-import uk.gov.hmrc.perftests.tre.requests.LoginDashboard_Requests._
+import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
+import uk.gov.hmrc.perftests.tre.helper.{invalidEORI, validEORI}
+import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashboard, YourAccount_Requests => yourAccount}
 
 trait YourAccount_Steps extends PerformanceTestRunner {
 
-  def journeyNameHere(id: String, description: String): JourneyPart = setup(id, description).withRequests(
-    getLoginPage,
-    postAuthWizLogin("${userEori}"),
-    getDashboardPage
-    // Open link...
-    // Do more stuff...
+  setup("your-account-with-valid-eori", "Reports 1: Your account details for valid EORI").withRequests(
+    loginDashboard.getLoginPage,
+    loginDashboard.postAuthWizLogin(validEORI),
+    loginDashboard.getDashboardPage,
+    yourAccount.getYourAccountPage,
+  )
+
+  setup("your-account-with-invalid-eori", "Report 2: Your account details for invalid EORI").withRequests(
+    loginDashboard.getLoginPage,
+    loginDashboard.postAuthWizLogin(invalidEORI),
+    loginDashboard.getDashboardPage,
+    yourAccount.getYourAccountPage,
   )
 }

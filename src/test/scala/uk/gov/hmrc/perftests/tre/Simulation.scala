@@ -18,6 +18,6 @@ package uk.gov.hmrc.perftests.tre
 
 import uk.gov.hmrc.perftests.tre.steps._
 
-class Simulation extends Report_Steps with DataAccess_Steps {
+class Simulation extends Report_Steps with DataAccess_Steps with YourAccount_Steps {
   runSimulation()
 }
