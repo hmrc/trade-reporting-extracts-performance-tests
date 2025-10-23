@@ -50,11 +50,11 @@ object AddThirdParty_Requests {
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  def postEORINumberPage(eori: String): HttpRequestBuilder =
-    http(s"[ADD-3] POST: posting EORI number '$eori'.")
+  def postEORINumberPage: HttpRequestBuilder =
+    http(s"[ADD-3] POST: posting EORI number.")
       .post(s"$baseURL$baseRoute/eori-number")
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", eori)
+      .formParam("value", _ => generateRandEORI())
       .check(status.is(303))
 
   def getConfirmEORIPage: HttpRequestBuilder =
