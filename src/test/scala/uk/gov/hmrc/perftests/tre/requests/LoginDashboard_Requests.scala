@@ -19,10 +19,9 @@ package uk.gov.hmrc.perftests.tre.requests
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
-import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.tre.helper._
 
-object LoginDashboard_Requests extends ServicesConfiguration {
+object LoginDashboard_Requests {
 
   def getLoginPage: HttpRequestBuilder = http("[ACC-0] GET: Navigate to AuthWiz login page")
     .get(authURL)
