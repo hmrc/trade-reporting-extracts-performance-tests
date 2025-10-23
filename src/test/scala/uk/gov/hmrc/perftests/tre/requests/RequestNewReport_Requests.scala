@@ -19,10 +19,9 @@ package uk.gov.hmrc.perftests.tre.requests
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
-import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.tre.helper._
 
-object RequestNewReport_Requests extends ServicesConfiguration {
+object RequestNewReport_Requests {
 
   def getRequestReportStartPage: HttpRequestBuilder =
     http("[REQ-1] GET: Navigate to the starting page")
