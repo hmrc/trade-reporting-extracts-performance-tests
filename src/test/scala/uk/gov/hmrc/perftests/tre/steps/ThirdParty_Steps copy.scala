@@ -17,21 +17,19 @@
 package uk.gov.hmrc.perftests.tre.steps
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-
-import uk.gov.hmrc.perftests.tre.helper.generateRandEORI
 import uk.gov.hmrc.perftests.tre.requests.{AddThirdParty_Requests => addThirdParty, LoginDashboard_Requests => loginDashboard, ManageThirdParty_Requests => manageThirdParty}
 
-trait DataAccess_Steps extends PerformanceTestRunner {
+trait ThirdParty_Steps extends PerformanceTestRunner {
 
   setup("add-third-party", "Third Party J1: Add a third party.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin(generateRandEORI()),
+    loginDashboard.postAuthWizLogin,
     loginDashboard.getDashboardPage,
     addThirdParty.getAddThirdPartyStartPage,
     addThirdParty.getImporterOrExporterPage,
     addThirdParty.postImporterOrExporterPage,
     addThirdParty.getEORINumberPage,
-    addThirdParty.postEORINumberPage(generateRandEORI()),
+    addThirdParty.postEORINumberPage,
     addThirdParty.getConfirmEORIPage,
     addThirdParty.postConfirmEORIPage,
     addThirdParty.getAccessStartPage,
@@ -53,7 +51,7 @@ trait DataAccess_Steps extends PerformanceTestRunner {
 
   setup("manage-third-party", "Third Party J2: Manage third parties.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin(generateRandEORI()),
+    loginDashboard.postAuthWizLogin,
     loginDashboard.getDashboardPage,
     manageThirdParty.getManageThirdPartiesPage,
     manageThirdParty.getManageAsThirdPartyPage

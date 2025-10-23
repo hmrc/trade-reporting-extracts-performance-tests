@@ -25,7 +25,7 @@ trait YourAccount_Steps extends PerformanceTestRunner {
 
   def journeyNameHere(id: String, description: String): JourneyPart = setup(id, description).withRequests(
     getLoginPage,
-    postAuthWizLogin("${userEori}"),
+    postAuthWizLogin,
     getDashboardPage
     // Open link...
     // Do more stuff...
