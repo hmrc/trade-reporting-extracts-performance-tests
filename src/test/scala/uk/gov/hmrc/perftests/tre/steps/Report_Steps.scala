@@ -22,9 +22,9 @@ import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashb
 
 trait Report_Steps extends PerformanceTestRunner {
 
-  setup("request-new-report", "Reports 1: Request new report.").withRequests(
+  setup("request-new-report", "Reports J1: Request new report.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin,
+    loginDashboard.postAuthWizLogin(),
     loginDashboard.getDashboardPage,
     requestNewReport.getRequestReportStartPage,
     requestNewReport.getWhichEoriPage,
@@ -54,16 +54,16 @@ trait Report_Steps extends PerformanceTestRunner {
     requestNewReport.getSubmissionPage
   )
 
-  setup("requested-reports", "Reports 2: View reports requested.").withRequests(
+  setup("requested-reports", "Reports J2: View reports requested.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin,
+    loginDashboard.postAuthWizLogin(),
     loginDashboard.getDashboardPage,
     viewRequested.getViewRequestedReportsPage
   )
 
   setup("downloadable-reports", "Reports 3: View reports for download.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin,
+    loginDashboard.postAuthWizLogin(),
     loginDashboard.getDashboardPage,
     viewDownloadable.getViewDownloadableReportsPage
   )

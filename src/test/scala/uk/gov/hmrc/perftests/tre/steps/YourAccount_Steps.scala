@@ -22,17 +22,17 @@ import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashb
 
 trait YourAccount_Steps extends PerformanceTestRunner {
 
-  setup("your-account-with-valid-eori", "Reports 1: Your account details for valid EORI").withRequests(
+  setup("your-account-with-valid-eori", "Your Account J1: Your account details for valid EORI").withRequests(
     loginDashboard.getLoginPage,
     loginDashboard.postAuthWizLogin(validEORI),
     loginDashboard.getDashboardPage,
-    yourAccount.getYourAccountPage,
+    yourAccount.getYourAccountPage
   )
 
-  setup("your-account-with-invalid-eori", "Report 2: Your account details for invalid EORI").withRequests(
+  setup("your-account-with-invalid-eori", "Your Account J2: Your account details for invalid EORI").withRequests(
     loginDashboard.getLoginPage,
     loginDashboard.postAuthWizLogin(invalidEORI),
     loginDashboard.getDashboardPage,
-    yourAccount.getYourAccountPage,
+    yourAccount.getYourAccountPage
   )
 }

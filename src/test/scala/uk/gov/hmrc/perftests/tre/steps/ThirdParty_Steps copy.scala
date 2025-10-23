@@ -23,7 +23,7 @@ trait ThirdParty_Steps extends PerformanceTestRunner {
 
   setup("add-third-party", "Third Party J1: Add a third party.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin,
+    loginDashboard.postAuthWizLogin(),
     loginDashboard.getDashboardPage,
     addThirdParty.getAddThirdPartyStartPage,
     addThirdParty.getImporterOrExporterPage,
@@ -51,7 +51,7 @@ trait ThirdParty_Steps extends PerformanceTestRunner {
 
   setup("manage-third-party", "Third Party J2: Manage third parties.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin,
+    loginDashboard.postAuthWizLogin(),
     loginDashboard.getDashboardPage,
     manageThirdParty.getManageThirdPartiesPage,
     manageThirdParty.getManageAsThirdPartyPage
