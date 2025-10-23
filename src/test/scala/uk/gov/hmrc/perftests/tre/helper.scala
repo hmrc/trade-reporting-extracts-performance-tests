@@ -44,6 +44,6 @@ object helper extends ServicesConfiguration {
   val baseRoute: String = "/request-customs-declaration-data"
 
   // Functions
-  def getDateMinusYears(format: String = "dd-MM-yyyy", yearsToReduce: Int = 0): String =
-    LocalDateTime.now().minusYears(yearsToReduce).format(DateTimeFormatter.ofPattern(format))
+  def getDateMinusDays(format: String = "dd-MM-yyyy", daysToReduce: Int = 0): String =
+    LocalDateTime.now().minusDays(daysToReduce).format(DateTimeFormatter.ofPattern(format))
 }
