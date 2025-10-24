@@ -19,10 +19,9 @@ package uk.gov.hmrc.perftests.tre.requests
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
-import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.tre.helper._
 
-object AddThirdParty_Requests extends ServicesConfiguration {
+object AddThirdParty_Requests {
 
   def getAddThirdPartyStartPage: HttpRequestBuilder =
     http("[ADD-1] GET: Navigate to the starting page.")
@@ -51,11 +50,11 @@ object AddThirdParty_Requests extends ServicesConfiguration {
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  def postEORINumberPage(eori: String): HttpRequestBuilder =
-    http(s"[ADD-3] POST: posting EORI number '$eori'.")
+  def postEORINumberPage: HttpRequestBuilder =
+    http(s"[ADD-3] POST: posting EORI number.")
       .post(s"$baseURL$baseRoute/eori-number")
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", eori)
+      .formParam("value", _ => generateRandEORI())
       .check(status.is(303))
 
   def getConfirmEORIPage: HttpRequestBuilder =
@@ -85,9 +84,9 @@ object AddThirdParty_Requests extends ServicesConfiguration {
     http(s"[ADD-6] POST: posting today's date.")
       .post(s"$baseURL$baseRoute/access-start-date")
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value.day", getDateMinusYears("dd", 0))
-      .formParam("value.month", getDateMinusYears("MM", 0))
-      .formParam("value.year", getDateMinusYears("yyyy", 0))
+      .formParam("value.day", getDateMinusDays("dd"))
+      .formParam("value.month", getDateMinusDays("MM"))
+      .formParam("value.year", getDateMinusDays("yyyy"))
       .check(status.is(303))
 
   def getAccessEndPage: HttpRequestBuilder =
@@ -140,12 +139,12 @@ object AddThirdParty_Requests extends ServicesConfiguration {
       .check(saveCsrfToken)
 
   def postDataAccessStart: HttpRequestBuilder =
-    http(s"[ADD-10] POST: posting a date four years ago from today")
+    http(s"[ADD-10] POST: posting a date a month ago from today")
       .post(s"$baseURL$baseRoute/data-start-date")
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value.day", getDateMinusYears("dd", 4))
-      .formParam("value.month", getDateMinusYears("MM", 4))
-      .formParam("value.year", getDateMinusYears("yyyy", 4))
+      .formParam("value.day", getDateMinusDays("dd", 31))
+      .formParam("value.month", getDateMinusDays("MM", 31))
+      .formParam("value.year", getDateMinusDays("yyyy", 31))
       .check(status.is(303))
 
   def getDataAccessEnd: HttpRequestBuilder =
@@ -161,25 +160,22 @@ object AddThirdParty_Requests extends ServicesConfiguration {
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
-  // QA Note:
-  // Pending a fix to add the CsrfToken to the confirmation page -- it is not currently present.
-
   def getCheckAnswersPage: HttpRequestBuilder =
     http("[ADD-12] GET: Navigate to check answers page.")
       .get(s"$baseURL$baseRoute/check-your-answers-third-party")
       .header("Cookie", authCookie)
       .check(status.is(200))
-  // .check(saveCsrfToken)
+      .check(saveCsrfToken)
 
-  // def postCheckAnswersPage: HttpRequestBuilder =
-  //   http(s"[ADD-12] POST: posting check answers page")
-  //     .post(s"$baseURL$baseRoute/check-your-answers-third-party")
-  //     .formParam("csrfToken", "#{csrfToken}")
-  //     .check(status.is(303))
+  def postCheckAnswersPage: HttpRequestBuilder =
+    http(s"[ADD-12] POST: posting check answers page")
+      .post(s"$baseURL$baseRoute/check-your-answers-third-party")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
 
-  // def getConfirmAnswersPage: HttpRequestBuilder =
-  //   http("[ADD-13] GET: Navigate to confirmation page.")
-  //     .get(s"$baseURL$baseRoute/third-party-added-confirmation")
-  //     .header("Cookie", authCookie)
-  //     .check(status.is(200))
+  def getConfirmAnswersPage: HttpRequestBuilder =
+    http("[ADD-13] GET: Navigate to confirmation page.")
+      .get(s"$baseURL$baseRoute/third-party-added-confirmation")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
 }

@@ -19,17 +19,16 @@ package uk.gov.hmrc.perftests.tre.requests
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
-import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.tre.helper._
 
-object LoginDashboard_Requests extends ServicesConfiguration {
+object LoginDashboard_Requests {
 
   def getLoginPage: HttpRequestBuilder = http("[ACC-0] GET: Navigate to AuthWiz login page")
     .get(authURL)
     .check(status.is(200))
     .check(saveCsrfToken)
 
-  def postAuthWizLogin(EoriNumber: String): HttpRequestBuilder =
+  def postAuthWizLogin(EoriNumber: String = ""): HttpRequestBuilder =
     http("[ACC-0] POST: Sign in through AuthWiz")
       .post(authURL)
       .formParam("csrfToken", "#{csrfToken}")
@@ -42,7 +41,11 @@ object LoginDashboard_Requests extends ServicesConfiguration {
       .formParam("authorityId", "")
       .formParam("enrolment[0].name", "HMRC-CUS-ORG")
       .formParam("enrolment[0].taxIdentifier[0].name", "EORINumber")
-      .formParam("enrolment[0].taxIdentifier[0].value", EoriNumber)
+      .formParam(
+        "enrolment[0].taxIdentifier[0].value",
+        if (EoriNumber.isEmpty) { _ => generateRandEORI() }
+        else { EoriNumber }
+      )
       .formParam("enrolment[0].state", "Activated")
       .check(status.is(303))
       .check(headerRegex("Set-Cookie", """mdtp=(.*)""").saveAs("mdtpCookie"))

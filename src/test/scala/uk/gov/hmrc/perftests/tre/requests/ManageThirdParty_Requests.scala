@@ -21,12 +21,17 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.perftests.tre.helper._
 
-object ViewRequested_Requests {
+object ManageThirdParty_Requests {
 
-  def getViewRequestedReportsPage: HttpRequestBuilder =
-    http("[RQR-1] GET: Navigate to view requested reports page.")
-      .get(s"$baseURL$baseRoute/requested-reports")
+  def getManageThirdPartiesPage: HttpRequestBuilder =
+    http("[MTP-1] GET: Navigate to the manage third party access page.")
+      .get(s"$baseURL$baseRoute/manage-third-parties")
       .header("Cookie", authCookie)
       .check(status.is(200))
 
+  def getManageAsThirdPartyPage: HttpRequestBuilder =
+    http("[TPA-1] GET: Navigate to the manage as third party page.")
+      .get(s"$baseURL$baseRoute/businesses-you-have-access-to")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
 }

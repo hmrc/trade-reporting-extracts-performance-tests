@@ -34,7 +34,7 @@ object helper extends ServicesConfiguration {
     return s"GB$randID"
   }
 
-  val validEORI: String = "GB123456123456"
+  val validEORI: String   = "GB123456123456"
   val invalidEORI: String = "GB333333333331"
 
   // Tokens and Cookies
@@ -47,6 +47,6 @@ object helper extends ServicesConfiguration {
   val baseRoute: String = "/request-customs-declaration-data"
 
   // Functions
-  def getDateMinusYears(format: String = "dd-MM-yyyy", yearsToReduce: Int = 0): String =
-    LocalDateTime.now().minusYears(yearsToReduce).format(DateTimeFormatter.ofPattern(format))
+  def getDateMinusDays(format: String = "dd-MM-yyyy", daysToReduce: Int = 0): String =
+    LocalDateTime.now().minusDays(daysToReduce).format(DateTimeFormatter.ofPattern(format))
 }

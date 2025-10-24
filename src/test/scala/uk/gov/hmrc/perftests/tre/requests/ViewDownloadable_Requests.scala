@@ -19,10 +19,9 @@ package uk.gov.hmrc.perftests.tre.requests
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
-import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.tre.helper._
 
-object ViewDownloadable_Requests extends ServicesConfiguration {
+object ViewDownloadable_Requests {
 
   def getViewDownloadableReportsPage: HttpRequestBuilder =
     http("[AVR-1] GET: Navigate to downloadable reports page.")
