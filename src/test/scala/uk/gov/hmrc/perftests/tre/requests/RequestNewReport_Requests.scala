@@ -201,7 +201,7 @@ object RequestNewReport_Requests {
 
   def postCheckYourAnswerPage: HttpRequestBuilder =
     http("[REQ-15] POST: posting to check answers page")
-      .post(s"$baseURL$baseRoute/check-your-answers")
+      .post(s"$baseURL$baseRoute/submit-report")
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
