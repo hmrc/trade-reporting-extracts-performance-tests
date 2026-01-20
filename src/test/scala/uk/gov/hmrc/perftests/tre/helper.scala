@@ -30,8 +30,8 @@ object helper extends ServicesConfiguration {
 
   // Randomisation of EORI per session, simulating multiple users.
   def generateRandEORI(): String = {
-    val randID = (1 to 12).map(_ => new Random().nextInt(9)).mkString
-    return s"GB$randID"
+    val randID = (1 to 11).map(_ => new Random().nextInt(9)).mkString
+    return s"GB1$randID"
   }
 
   val validEORI: String   = "GB123456123456"
