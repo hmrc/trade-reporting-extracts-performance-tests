@@ -25,7 +25,7 @@ object YourAccount_Requests {
 
   def getYourAccountPage: HttpRequestBuilder =
     http("[RQR-1] GET: Navigate to your account page.")
-      .get(s"$baseURL$baseRoute/contact-details")
+      .get(s"$serviceURL/contact-details")
       .header("Cookie", authCookie)
       .check(status.is(200))
 }

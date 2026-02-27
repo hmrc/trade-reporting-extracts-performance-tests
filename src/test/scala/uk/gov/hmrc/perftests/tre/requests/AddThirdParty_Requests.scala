@@ -25,48 +25,48 @@ object AddThirdParty_Requests {
 
   def getAddThirdPartyStartPage: HttpRequestBuilder =
     http("[ADD-1] GET: Navigate to the starting page.")
-      .get(s"$baseURL$baseRoute/add-a-third-party")
+      .get(s"$serviceURL/add-a-third-party")
       .header("Cookie", authCookie)
       .check(status.is(200))
 
   def getImporterOrExporterPage: HttpRequestBuilder =
     http("[ADD-2] GET: Navigate to the 'Importer' or 'Exporter' page.")
-      .get(s"$baseURL$baseRoute/importer-or-exporter")
+      .get(s"$serviceURL/importer-or-exporter")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postImporterOrExporterPage: HttpRequestBuilder =
     http("[ADD-2] POST: posting 'yes'.")
-      .post(s"$baseURL$baseRoute/importer-or-exporter")
+      .post(s"$serviceURL/importer-or-exporter")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "true")
       .check(status.is(303))
 
   def getEORINumberPage: HttpRequestBuilder =
     http("[ADD-3] GET: Navigate to the enter EORI number page.")
-      .get(s"$baseURL$baseRoute/eori-number")
+      .get(s"$serviceURL/eori-number")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postEORINumberPage: HttpRequestBuilder =
     http(s"[ADD-3] POST: posting EORI number.")
-      .post(s"$baseURL$baseRoute/eori-number")
+      .post(s"$serviceURL/eori-number")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", _ => generateRandEORI())
       .check(status.is(303))
 
   def getConfirmEORIPage: HttpRequestBuilder =
     http("[ADD-4] GET: Navigate to confirm EORI number page.")
-      .get(s"$baseURL$baseRoute/confirm-eori")
+      .get(s"$serviceURL/confirm-eori")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postConfirmEORIPage: HttpRequestBuilder =
     http(s"[ADD-4] POST: posting 'yes' to confirm EORI.")
-      .post(s"$baseURL$baseRoute/confirm-eori")
+      .post(s"$serviceURL/confirm-eori")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "yes")
       .check(status.is(303))
@@ -75,14 +75,14 @@ object AddThirdParty_Requests {
 
   def getAccessStartPage: HttpRequestBuilder =
     http("[ADD-6] GET: Navigate to access start page.")
-      .get(s"$baseURL$baseRoute/access-start-date")
+      .get(s"$serviceURL/access-start-date")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postAccessStartPage: HttpRequestBuilder =
     http(s"[ADD-6] POST: posting today's date.")
-      .post(s"$baseURL$baseRoute/access-start-date")
+      .post(s"$serviceURL/access-start-date")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value.day", getDateMinusDays("dd"))
       .formParam("value.month", getDateMinusDays("MM"))
@@ -91,27 +91,27 @@ object AddThirdParty_Requests {
 
   def getAccessEndPage: HttpRequestBuilder =
     http("[ADD-7] GET: Navigate to access end page.")
-      .get(s"$baseURL$baseRoute/access-end-date")
+      .get(s"$serviceURL/access-end-date")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postAccessEndPage: HttpRequestBuilder =
     http(s"[ADD-7] POST: continuing without entering an end date.")
-      .post(s"$baseURL$baseRoute/access-end-date")
+      .post(s"$serviceURL/access-end-date")
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
   def getTypeOfDataPage: HttpRequestBuilder =
     http("[ADD-8] GET: Navigate to type of data page.")
-      .get(s"$baseURL$baseRoute/data-types")
+      .get(s"$serviceURL/data-types")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postTypeOfDataPage: HttpRequestBuilder =
     http(s"[ADD-8] POST: posting 'import' and 'export' types.")
-      .post(s"$baseURL$baseRoute/data-types")
+      .post(s"$serviceURL/data-types")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value[0]", "import")
       .formParam("value[1]", "export")
@@ -119,28 +119,28 @@ object AddThirdParty_Requests {
 
   def getGiveDataAccess: HttpRequestBuilder =
     http("[ADD-9] GET: Navigate to give data access range page.")
-      .get(s"$baseURL$baseRoute/data-access-range")
+      .get(s"$serviceURL/data-access-range")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postGiveDataAccess: HttpRequestBuilder =
     http(s"[ADD-9] POST: posting 'no' to enter custom range'")
-      .post(s"$baseURL$baseRoute/data-access-range")
+      .post(s"$serviceURL/data-access-range")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "customDateRange")
       .check(status.is(303))
 
   def getDataAccessStart: HttpRequestBuilder =
     http("[ADD-10] GET: Navigate to data access start date page.")
-      .get(s"$baseURL$baseRoute/data-start-date")
+      .get(s"$serviceURL/data-start-date")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postDataAccessStart: HttpRequestBuilder =
     http(s"[ADD-10] POST: posting a date a month ago from today")
-      .post(s"$baseURL$baseRoute/data-start-date")
+      .post(s"$serviceURL/data-start-date")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value.day", getDateMinusDays("dd", 31))
       .formParam("value.month", getDateMinusDays("MM", 31))
@@ -149,33 +149,33 @@ object AddThirdParty_Requests {
 
   def getDataAccessEnd: HttpRequestBuilder =
     http("[ADD-11] GET: Navigate to data access end date page.")
-      .get(s"$baseURL$baseRoute/data-end-date")
+      .get(s"$serviceURL/data-end-date")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postDataAccessEnd: HttpRequestBuilder =
     http(s"[ADD-11] POST: continuing without entering an end date.")
-      .post(s"$baseURL$baseRoute/data-end-date")
+      .post(s"$serviceURL/data-end-date")
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
   def getCheckAnswersPage: HttpRequestBuilder =
     http("[ADD-12] GET: Navigate to check answers page.")
-      .get(s"$baseURL$baseRoute/check-your-answers-third-party")
+      .get(s"$serviceURL/check-your-answers-third-party")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postCheckAnswersPage: HttpRequestBuilder =
     http(s"[ADD-12] POST: posting check answers page")
-      .post(s"$baseURL$baseRoute/check-your-answers-third-party")
+      .post(s"$serviceURL/check-your-answers-third-party")
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
   def getConfirmAnswersPage: HttpRequestBuilder =
     http("[ADD-13] GET: Navigate to confirmation page.")
-      .get(s"$baseURL$baseRoute/third-party-added-confirmation")
+      .get(s"$serviceURL/third-party-added-confirmation")
       .header("Cookie", authCookie)
       .check(status.is(200))
 }

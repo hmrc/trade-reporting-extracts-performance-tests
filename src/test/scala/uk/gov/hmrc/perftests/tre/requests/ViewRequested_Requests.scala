@@ -25,7 +25,7 @@ object ViewRequested_Requests {
 
   def getViewRequestedReportsPage: HttpRequestBuilder =
     http("[RQR-1] GET: Navigate to view requested reports page.")
-      .get(s"$baseURL$baseRoute/requested-reports")
+      .get(s"$serviceURL/requested-reports")
       .header("Cookie", authCookie)
       .check(status.is(200))
 

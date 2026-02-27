@@ -25,7 +25,7 @@ object ViewDownloadable_Requests {
 
   def getViewDownloadableReportsPage: HttpRequestBuilder =
     http("[AVR-1] GET: Navigate to downloadable reports page.")
-      .get(s"$baseURL$baseRoute/available-to-download")
+      .get(s"$serviceURL/available-to-download")
       .header("Cookie", authCookie)
       .check(status.is(200))
 
