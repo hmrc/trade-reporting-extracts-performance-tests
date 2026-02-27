@@ -34,17 +34,14 @@ object helper extends ServicesConfiguration {
     return s"GB1$randID"
   }
 
-  val validEORI: String   = "GB123456123456"
-  val invalidEORI: String = "GB333333333331"
-
   // Tokens and Cookies
   val authCookie: String       = "mdtp=${mdtpCookie}"
   def saveCsrfToken: HttpCheck = css("input[name=csrfToken]", "value").saveAs("csrfToken")
 
   // URLs
-  val authURL: String   = baseUrlFor("auth-login-stub") + "/auth-login-stub/gg-sign-in"
-  val baseURL: String   = baseUrlFor("trade-reporting-extracts")
-  val baseRoute: String = "/request-customs-declaration-data"
+  val authURL: String    = baseUrlFor("auth-login-stub") + "/auth-login-stub/gg-sign-in"
+  val baseURL: String    = baseUrlFor("trade-reporting-extracts")
+  val serviceURL: String = s"$baseURL/request-customs-declaration-data"
 
   // Functions
   def getDateMinusDays(format: String = "dd-MM-yyyy", daysToReduce: Int = 0): String =
