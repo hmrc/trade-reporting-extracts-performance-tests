@@ -24,8 +24,36 @@ import uk.gov.hmrc.perftests.tre.helper._
 object YourAccount_Requests {
 
   def getYourAccountPage: HttpRequestBuilder =
-    http("[RQR-1] GET: Navigate to your account page.")
+    http("[DET-1] GET: Navigate to your account page.")
       .get(s"$serviceURL/contact-details")
       .header("Cookie", authCookie)
       .check(status.is(200))
+
+  def getAddNewEmailPage: HttpRequestBuilder =
+    http("[DET-2] GET: Navigate to add new email page.")
+      .get(s"$serviceURL/add-new-email")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+      .check(saveCsrfToken)
+
+  def postAddNewEmailPage: HttpRequestBuilder =
+    http("[DET-2] POST: Posting new email.")
+      .post(s"$serviceURL/add-new-email")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("value", "example@email.com")
+      .check(status.is(303))
+
+  def getConfirmNewEmailPage: HttpRequestBuilder =
+    http("[DET-3] GET: Navigate to confirm email prage.")
+      .get(s"$serviceURL/check-email-address")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+      .check(saveCsrfToken)
+
+  def postConfirmNewEmailPage: HttpRequestBuilder =
+    http("[DET-3] POST: Posting confirmation of new email")
+      .post(s"$serviceURL/check-email-address")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("value", "true")
+      .check(status.is(303))
 }

@@ -21,10 +21,14 @@ import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashb
 
 trait YourAccount_Steps extends PerformanceTestRunner {
 
-  setup("your-account-with-valid-eori", "Your Account J1: Your account details for valid EORI").withRequests(
+  setup("your-account-additional-email", "Your Account J1: Adding and removing an additional email.").withRequests(
     loginDashboard.getLoginPage,
     loginDashboard.postAuthWizLogin(),
     loginDashboard.getDashboardPage,
-    yourAccount.getYourAccountPage
+    yourAccount.getYourAccountPage,
+    yourAccount.getAddNewEmailPage,
+    yourAccount.postAddNewEmailPage,
+    yourAccount.getConfirmNewEmailPage,
+    yourAccount.postConfirmNewEmailPage
   )
 }
