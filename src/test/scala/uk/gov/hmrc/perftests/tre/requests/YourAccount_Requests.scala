@@ -43,17 +43,43 @@ object YourAccount_Requests {
       .formParam("value", "example@email.com")
       .check(status.is(303))
 
-  def getConfirmNewEmailPage: HttpRequestBuilder =
-    http("[DET-3] GET: Navigate to confirm email prage.")
+  def getCheckNewEmailPage: HttpRequestBuilder =
+    http("[DET-3] GET: Navigate to check email page.")
       .get(s"$serviceURL/check-email-address")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  def postConfirmNewEmailPage: HttpRequestBuilder =
-    http("[DET-3] POST: Posting confirmation of new email")
+  def postCheckNewEmailPage: HttpRequestBuilder =
+    http("[DET-3] POST: Posting check of new email")
       .post(s"$serviceURL/check-email-address")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "true")
       .check(status.is(303))
+
+  def getConfirmNewEmailAddedPage: HttpRequestBuilder =
+    http("[DET-4] GET: Navigate to new email submission confirmation page.")
+      .get(s"$serviceURL/email-added?emailAddress=example%40email.com")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+
+  def getCheckRemoveEmailPage: HttpRequestBuilder =
+    http("[DET-5] GET: Navigate to remove email page.")
+      .get(s"$serviceURL/email-removed?emailAddress=example%40email.com")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+      .check(saveCsrfToken)
+
+  def postCheckRemoveEmailPage: HttpRequestBuilder =
+    http("[DET-5] POST: Post removal of email")
+      .post(s"$serviceURL/email-removed?emailAddress=example%40email.com")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("value", "true")
+      .check(status.is(303))
+
+  def getConfirmEmailRemovedPage: HttpRequestBuilder =
+    http("[DET-6] GET: Navigate to email removal confirmation page.")
+      .get(s"$serviceURL/email-removed-confirmation?emailAddress=example%40email.com")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
 }

@@ -26,9 +26,15 @@ trait YourAccount_Steps extends PerformanceTestRunner {
     loginDashboard.postAuthWizLogin(),
     loginDashboard.getDashboardPage,
     yourAccount.getYourAccountPage,
+    // Adding an email
     yourAccount.getAddNewEmailPage,
     yourAccount.postAddNewEmailPage,
-    yourAccount.getConfirmNewEmailPage,
-    yourAccount.postConfirmNewEmailPage
+    yourAccount.getCheckNewEmailPage,
+    yourAccount.postCheckNewEmailPage,
+    yourAccount.getConfirmNewEmailAddedPage,
+    // Removing an email
+    yourAccount.getCheckRemoveEmailPage,
+    yourAccount.postCheckRemoveEmailPage,
+    yourAccount.getConfirmEmailRemovedPage
   )
 }
