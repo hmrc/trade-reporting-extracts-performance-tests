@@ -32,7 +32,7 @@ object LoginDashboard_Requests {
     http("[ACC-0] POST: Sign in through AuthWiz")
       .post(authURL)
       .formParam("csrfToken", "#{csrfToken}")
-      .formParam("redirectionUrl", s"$baseURL$baseRoute/dashboard")
+      .formParam("redirectionUrl", s"$serviceURL/dashboard")
       .formParam("credentialStrength", "strong")
       .formParam("confidenceLevel", "50")
       .formParam("affinityGroup", "Individual")
@@ -52,7 +52,7 @@ object LoginDashboard_Requests {
 
   def getDashboardPage: HttpRequestBuilder =
     http("[ACC-1] GET: Navigate to dashboard page")
-      .get(s"$baseURL$baseRoute/dashboard")
+      .get(s"$serviceURL/dashboard")
       .header("Cookie", authCookie)
       .check(status.is(200))
 }

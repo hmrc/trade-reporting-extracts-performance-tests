@@ -25,13 +25,13 @@ object ManageThirdParty_Requests {
 
   def getManageThirdPartiesPage: HttpRequestBuilder =
     http("[MTP-1] GET: Navigate to the manage third party access page.")
-      .get(s"$baseURL$baseRoute/manage-third-parties")
+      .get(s"$serviceURL/manage-third-parties")
       .header("Cookie", authCookie)
       .check(status.is(200))
 
   def getManageAsThirdPartyPage: HttpRequestBuilder =
     http("[TPA-1] GET: Navigate to the manage as third party page.")
-      .get(s"$baseURL$baseRoute/businesses-you-have-access-to")
+      .get(s"$serviceURL/businesses-you-have-access-to")
       .header("Cookie", authCookie)
       .check(status.is(200))
 }

@@ -17,22 +17,24 @@
 package uk.gov.hmrc.perftests.tre.steps
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.tre.helper.{invalidEORI, validEORI}
 import uk.gov.hmrc.perftests.tre.requests.{LoginDashboard_Requests => loginDashboard, YourAccount_Requests => yourAccount}
 
 trait YourAccount_Steps extends PerformanceTestRunner {
 
-  setup("your-account-with-valid-eori", "Your Account J1: Your account details for valid EORI").withRequests(
+  setup("your-account-additional-email", "Your Account J1: Adding and removing an additional email.").withRequests(
     loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin(validEORI),
+    loginDashboard.postAuthWizLogin(),
     loginDashboard.getDashboardPage,
-    yourAccount.getYourAccountPage
-  )
-
-  setup("your-account-with-invalid-eori", "Your Account J2: Your account details for invalid EORI").withRequests(
-    loginDashboard.getLoginPage,
-    loginDashboard.postAuthWizLogin(invalidEORI),
-    loginDashboard.getDashboardPage,
-    yourAccount.getYourAccountPage
+    yourAccount.getYourAccountPage,
+    // Adding an email
+    yourAccount.getAddNewEmailPage,
+    yourAccount.postAddNewEmailPage,
+    yourAccount.getCheckNewEmailPage,
+    yourAccount.postCheckNewEmailPage,
+    yourAccount.getConfirmNewEmailAddedPage,
+    // Removing an email
+    yourAccount.getCheckRemoveEmailPage,
+    yourAccount.postCheckRemoveEmailPage,
+    yourAccount.getConfirmEmailRemovedPage
   )
 }
