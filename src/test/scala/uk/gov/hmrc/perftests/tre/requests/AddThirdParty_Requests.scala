@@ -71,8 +71,6 @@ object AddThirdParty_Requests {
       .formParam("value", "yes")
       .check(status.is(303))
 
-  // ADD-5: Reference name.
-
   def getAccessStartPage: HttpRequestBuilder =
     http("[ADD-6] GET: Navigate to access start page.")
       .get(s"$serviceURL/access-start-date")
