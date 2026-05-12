@@ -28,14 +28,17 @@ trait ThirdParty_Steps extends PerformanceTestRunner {
     addThirdParty.getAddThirdPartyStartPage,
     addThirdParty.getImporterOrExporterPage,
     addThirdParty.postImporterOrExporterPage,
+    // EORI Number
     addThirdParty.getEORINumberPage,
     addThirdParty.postEORINumberPage,
     addThirdParty.getConfirmEORIPage,
     addThirdParty.postConfirmEORIPage,
+    // Access
     addThirdParty.getAccessStartPage,
     addThirdParty.postAccessStartPage,
     addThirdParty.getAccessEndPage,
     addThirdParty.postAccessEndPage,
+    // Data
     addThirdParty.getTypeOfDataPage,
     addThirdParty.postTypeOfDataPage,
     addThirdParty.getGiveDataAccess,
@@ -44,6 +47,7 @@ trait ThirdParty_Steps extends PerformanceTestRunner {
     addThirdParty.postDataAccessStart,
     addThirdParty.getDataAccessEnd,
     addThirdParty.postDataAccessEnd,
+    // Confirmation & Submission
     addThirdParty.getCheckAnswersPage,
     addThirdParty.postCheckAnswersPage,
     addThirdParty.getConfirmAnswersPage
