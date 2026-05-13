@@ -162,8 +162,6 @@ object RequestNewReport_Requests {
       .formParam("value", "true")
       .check(status.is(303))
 
-  // REQ-12: Choose email, if an additional email is already associated to the account.
-
   def getEnterEmailPage: HttpRequestBuilder =
     http("[REQ-13] GET: Navigate to enter new email page")
       .get(s"$serviceURL/new-notification-email")
