@@ -59,14 +59,14 @@ object RequestNewReport_Requests {
 
   def getReportRolePage: HttpRequestBuilder =
     http("[REQ-4] GET: Navigate to the user role in report page")
-      .get(s"$serviceURL/your-role")
+      .get(s"$serviceURL/request-data")
       .header("Cookie", authCookie)
       .check(status.is(200))
       .check(saveCsrfToken)
 
   def postReportRolePage: HttpRequestBuilder =
     http("[REQ-4] POST: posting user role in the report")
-      .post(s"$serviceURL/your-role")
+      .post(s"$serviceURL/request-data")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value[0]", "declarant")
       .formParam("value[1]", "importer")
