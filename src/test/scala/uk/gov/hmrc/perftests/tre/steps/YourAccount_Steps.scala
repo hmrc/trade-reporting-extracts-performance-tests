@@ -35,6 +35,14 @@ trait YourAccount_Steps extends PerformanceTestRunner {
     // Removing an email
     yourAccount.getCheckRemoveEmailPage,
     yourAccount.postCheckRemoveEmailPage,
-    yourAccount.getConfirmEmailRemovedPage
+    yourAccount.getConfirmEmailRemovedPage,
+    // Enabling email notifications
+    yourAccount.getEmailDisableNotifPage,
+    yourAccount.postEmailDisableNotifPage,
+    yourAccount.getEmailDisableNotifConfirmPage,
+    // Disabling email notifications
+    yourAccount.getEmailEnableNotifPage,
+    yourAccount.postEmailEnableNotifPage,
+    yourAccount.getEmailEnableNotifConfirmPage
   )
 }

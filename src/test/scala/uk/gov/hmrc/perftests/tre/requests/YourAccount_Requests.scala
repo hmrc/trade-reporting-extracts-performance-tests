@@ -82,4 +82,42 @@ object YourAccount_Requests {
       .get(s"$serviceURL/email-removed-confirmation?emailAddress=example%40email.com")
       .header("Cookie", authCookie)
       .check(status.is(200))
+
+  def getEmailDisableNotifPage: HttpRequestBuilder =
+    http("[DET-7] GET: Navigate to disable email notifications page.")
+      .get(s"$serviceURL/disable-email-notifications")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+
+  def postEmailDisableNotifPage: HttpRequestBuilder =
+    http("[DET-8] POST: Navigate to disable email notifications page.")
+      .post(s"$serviceURL/disable-email-notifications")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("value", "true")
+      .check(status.is(303))
+
+  def getEmailDisableNotifConfirmPage: HttpRequestBuilder =
+    http("[DET-9] GET: Navigate to disable email notifications confirmation page.")
+      .get(s"$serviceURL/email-notifications-disabled")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+
+  def getEmailEnableNotifPage: HttpRequestBuilder =
+    http("[DET-10] GET: Navigate to enable email notifications page.")
+      .get(s"$serviceURL/enable-email-notifications")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
+
+  def postEmailEnableNotifPage: HttpRequestBuilder =
+    http("[DET-11] POST: Navigate to enable email notifications page.")
+      .post(s"$serviceURL/enable-email-notifications")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("value", "true")
+      .check(status.is(303))
+
+  def getEmailEnableNotifConfirmPage: HttpRequestBuilder =
+    http("[DET-12] GET: Navigate to enable email notifications confirmation page.")
+      .get(s"$serviceURL/email-notifications-enabled")
+      .header("Cookie", authCookie)
+      .check(status.is(200))
 }
