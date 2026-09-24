@@ -88,6 +88,7 @@ object YourAccount_Requests {
       .get(s"$serviceURL/disable-email-notifications")
       .header("Cookie", authCookie)
       .check(status.is(200))
+      .check(saveCsrfToken)
 
   def postEmailDisableNotifPage: HttpRequestBuilder =
     http("[DET-8] POST: Navigate to disable email notifications page.")
@@ -107,6 +108,7 @@ object YourAccount_Requests {
       .get(s"$serviceURL/enable-email-notifications")
       .header("Cookie", authCookie)
       .check(status.is(200))
+      .check(saveCsrfToken)
 
   def postEmailEnableNotifPage: HttpRequestBuilder =
     http("[DET-11] POST: Navigate to enable email notifications page.")

@@ -35,14 +35,22 @@ trait YourAccount_Steps extends PerformanceTestRunner {
     // Removing an email
     yourAccount.getCheckRemoveEmailPage,
     yourAccount.postCheckRemoveEmailPage,
-    yourAccount.getConfirmEmailRemovedPage,
-    // Enabling email notifications
-    yourAccount.getEmailDisableNotifPage,
-    yourAccount.postEmailDisableNotifPage,
-    yourAccount.getEmailDisableNotifConfirmPage,
-    // Disabling email notifications
-    yourAccount.getEmailEnableNotifPage,
-    yourAccount.postEmailEnableNotifPage,
-    yourAccount.getEmailEnableNotifConfirmPage
+    yourAccount.getConfirmEmailRemovedPage
   )
+
+  setup("your-account-email-notifications", "Your Account J2: Disabling and enabling email notifications.")
+    .withRequests(
+      loginDashboard.getLoginPage,
+      loginDashboard.postAuthWizLogin(),
+      loginDashboard.getDashboardPage,
+      yourAccount.getYourAccountPage,
+      // Disabling email notifications
+      yourAccount.getEmailDisableNotifPage,
+      yourAccount.postEmailDisableNotifPage,
+      yourAccount.getEmailDisableNotifConfirmPage,
+      // Enabling email notifications
+      yourAccount.getEmailEnableNotifPage,
+      yourAccount.postEmailEnableNotifPage,
+      yourAccount.getEmailEnableNotifConfirmPage
+    )
 }
